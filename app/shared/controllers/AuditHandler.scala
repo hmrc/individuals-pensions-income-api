@@ -18,11 +18,11 @@ package shared.controllers
 
 import api.controllers.{RequestContext, RequestContextImplicits}
 import api.models.audit.{AuditEvent, AuditResponse, FlattenedGenericAuditDetail, GenericAuditDetail}
+import cats.syntax.either._
+import play.api.libs.json.{JsValue, Writes}
 import shared.models.auth.UserDetails
 import shared.models.errors.ErrorWrapper
 import shared.services.AuditService
-import cats.syntax.either._
-import play.api.libs.json.{JsValue, Writes}
 
 import scala.concurrent.ExecutionContext
 
