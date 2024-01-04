@@ -22,7 +22,7 @@ object CodeCoverageSettings {
   val settings: Seq[Setting[_]] = List(
     ScoverageKeys.coverageExcludedPackages := excludedPackages.mkString(";"),
     ScoverageKeys.coverageExcludedFiles := ".*PensionsIncomePlayModule;.*DocumentationController",
-    ScoverageKeys.coverageMinimumStmtTotal := 90,
+    ScoverageKeys.coverageMinimumStmtTotal := 90, // TODO increase to 95% when the shared code is migrated over.
     ScoverageKeys.coverageFailOnMinimum    := true,
     ScoverageKeys.coverageHighlighting     := true
   )

@@ -14,34 +14,35 @@
  * limitations under the License.
  */
 
-package api.controllers.requestParsers.validators.validations
+package v1.controllers.requestParsers.validators.validations
 
+import api.controllers.requestParsers.validators.validations.NoValidationErrors
 import shared.UnitSpec
-import v1.models.QOPSRefFormatError
+import v1.models.SF74RefFormatError
 
-class QOPSRefValidationSpec extends UnitSpec {
+class SF74RefValidationSpec extends UnitSpec {
 
-  "QOPSRefValidation" when {
+  "SF74RefValidation" when {
     "validateOptional" must {
       "return an empty list for a value of 'None'" in {
-        QOPSRefValidation.validateOptional(
-          qopsRef = None,
+        SF74RefValidation.validateOptional(
+          sf74Ref = None,
           path = "/path"
         ) shouldBe NoValidationErrors
       }
 
-      "validate correctly for some valid qopsRef" in {
-        QOPSRefValidation.validateOptional(
-          qopsRef = Some("QOPS000000"),
+      "validate correctly for some valid sf74Ref" in {
+        SF74RefValidation.validateOptional(
+          sf74Ref = Some("SF74-123456"),
           path = "/path"
         ) shouldBe NoValidationErrors
       }
 
-      "validate correctly for some invalid qopsRef" in {
-        QOPSRefValidation.validateOptional(
-          qopsRef = Some("This qopsRef string is 91 characters long ---------------------------------------------- 91"),
+      "validate correctly for some invalid sf74Ref" in {
+        SF74RefValidation.validateOptional(
+          sf74Ref = Some("This sf74Ref string is 91 characters long ---------------------------------------------- 91"),
           path = "/path"
-        ) shouldBe List(QOPSRefFormatError.copy(paths = Some(Seq("/path"))))
+        ) shouldBe List(SF74RefFormatError.copy(paths = Some(Seq("/path"))))
       }
     }
   }

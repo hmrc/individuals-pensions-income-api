@@ -20,6 +20,7 @@ import api.controllers.requestParsers.validators.Validator
 import api.controllers.requestParsers.validators.validations._
 import shared.config.AppConfig
 import shared.models.errors.MtdError
+import v1.controllers.requestParsers.validators.validations.{QOPSRefValidation, SF74RefValidation}
 import v1.models.request.createAmendPensions._
 
 import javax.inject.{Inject, Singleton}
