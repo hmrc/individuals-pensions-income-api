@@ -16,7 +16,7 @@
 
 package api.controllers.requestParsers.validators
 
-import api.models.domain.TaxYear
+import shared.models.domain.TaxYear
 
 import java.time.LocalDate
 import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder}

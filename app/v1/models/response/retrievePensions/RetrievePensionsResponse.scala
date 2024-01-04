@@ -16,9 +16,9 @@
 
 package v1.models.response.retrievePensions
 
-import api.models.domain.Timestamp
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, Json, OWrites, Reads}
+import shared.models.domain.Timestamp
 import shared.utils.JsonUtils
 
 case class RetrievePensionsResponse(submittedOn: Timestamp,

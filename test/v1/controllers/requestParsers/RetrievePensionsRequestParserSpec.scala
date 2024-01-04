@@ -16,9 +16,9 @@
 
 package v1.controllers.requestParsers
 
-import api.models.domain.{Nino, TaxYear}
-import shared.models.errors.{BadRequestError, ErrorWrapper, NinoFormatError, TaxYearFormatError}
 import shared.UnitSpec
+import shared.models.domain.{Nino, TaxYear}
+import shared.models.errors.{BadRequestError, ErrorWrapper, NinoFormatError, TaxYearFormatError}
 import v1.mocks.validators.MockRetrievePensionsValidator
 import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequest}
 

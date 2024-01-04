@@ -17,8 +17,8 @@
 package v1.controllers
 
 import api.controllers.{ControllerBaseSpec, ControllerTestRunner}
-import api.models.domain.{Nino, TaxYear, Timestamp}
 import play.api.mvc.Result
+import shared.models.domain.{Nino, TaxYear, Timestamp}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
 import v1.fixtures.RetrievePensionsControllerFixture

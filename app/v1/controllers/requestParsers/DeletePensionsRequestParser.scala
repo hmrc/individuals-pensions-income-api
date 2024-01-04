@@ -17,7 +17,7 @@
 package v1.controllers.requestParsers
 
 import api.controllers.requestParsers.RequestParser
-import api.models.domain.{Nino, TaxYear}
+import shared.models.domain.{Nino, TaxYear}
 import v1.controllers.requestParsers.validators.DeletePensionsValidator
 import v1.models.request.deletePensions.{DeletePensionsRawData, DeletePensionsRequest}
 

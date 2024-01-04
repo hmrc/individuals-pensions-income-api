@@ -16,11 +16,11 @@
 
 package api.mocks.services
 
-import shared.models.auth.UserDetails
-import api.models.outcomes.AuthOutcome
-import shared.services.EnrolmentsAuthService
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
+import shared.models.auth.UserDetails
+import shared.models.outcomes.AuthOutcome
+import shared.services.EnrolmentsAuthService
 import uk.gov.hmrc.auth.core.authorise.Predicate
 import uk.gov.hmrc.http.HeaderCarrier
 

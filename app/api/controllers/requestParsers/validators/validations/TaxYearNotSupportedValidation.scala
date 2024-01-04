@@ -16,7 +16,7 @@
 
 package api.controllers.requestParsers.validators.validations
 
-import api.models.domain.TaxYear
+import shared.models.domain.TaxYear
 import shared.models.errors.{MtdError, RuleTaxYearNotSupportedError}
 
 object TaxYearNotSupportedValidation {

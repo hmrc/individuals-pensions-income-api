@@ -16,14 +16,14 @@
 
 package v1.controllers.requestParsers
 
-import api.models.domain.{Nino, TaxYear}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.AnyContentAsJson
 import shared.UnitSpec
+import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import v1.mocks.validators.MockCreateAmendPensionsValidator
-import v1.models.request.createAmendPensions._
 import v1.models._
+import v1.models.request.createAmendPensions._
 
 class CreateAmendPensionsRequestParserSpec extends UnitSpec {
 

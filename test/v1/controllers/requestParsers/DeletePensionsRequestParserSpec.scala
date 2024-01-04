@@ -16,9 +16,9 @@
 
 package v1.controllers.requestParsers
 
-import api.models.domain.{Nino, TaxYear}
-import shared.models.errors._
 import shared.UnitSpec
+import shared.models.domain.{Nino, TaxYear}
+import shared.models.errors._
 import v1.mocks.validators.MockDeletePensionsValidator
 import v1.models.request.deletePensions.{DeletePensionsRawData, DeletePensionsRequest}
 
