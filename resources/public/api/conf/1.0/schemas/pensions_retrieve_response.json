@@ -7,7 +7,6 @@
     "submittedOn": {"$ref": "pensions_definitions.json#/definitions/submittedOn"},
     "foreignPensions": {"$ref": "pensions_definitions.json#/definitions/foreignPensions"},
     "overseasPensionContributions": {"$ref": "pensions_definitions.json#/definitions/overseasPensionContributions"},
-    "links": {"$ref": "pensions_definitions.json#/definitions/links"}
   },
   "required": ["submittedOn"]
 }
