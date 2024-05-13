@@ -22,7 +22,7 @@ import org.scalamock.scalatest.MockFactory
 import play.api.http.Status.BAD_REQUEST
 import shared.UnitSpec
 
-class ValidatorSpec extends UnitSpec with MockFactory {
+class ValidatorOldSpec extends UnitSpec with MockFactory {
 
   private trait Test {
     val validator = new TestValidator()
