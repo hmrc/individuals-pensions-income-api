@@ -22,10 +22,11 @@ import shared.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import shared.models.domain.{Nino, TaxYear, Timestamp}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
+import v1.controllers.validators.MockRetrievePensionsValidatorFactory
 import v1.fixtures.RetrievePensionsControllerFixture
-import v1.mocks.requestParsers.MockRetrievePensionsRequestParser
+
 import v1.mocks.services.MockRetrievePensionsService
-import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequestData}
+import v1.models.request.retrievePensions.RetrievePensionsRequestData
 import v1.models.response.retrievePensions.{ForeignPensionsItem, OverseasPensionContributions, RetrievePensionsResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -35,15 +36,10 @@ class RetrievePensionsControllerSpec
     extends ControllerBaseSpec
     with ControllerTestRunner
     with MockRetrievePensionsService
-    with MockRetrievePensionsRequestParser
+    with MockRetrievePensionsValidatorFactory
     with MockAppConfig {
 
   private val taxYear = "2019-20"
-
-  private val rawData: RetrievePensionsRawData = RetrievePensionsRawData(
-    nino = validNino,
-    taxYear = taxYear
-  )
 
   private val requestData: RetrievePensionsRequestData = RetrievePensionsRequestData(
     nino = Nino(validNino),
@@ -103,9 +99,7 @@ class RetrievePensionsControllerSpec
   "RetrievePensionsController" should {
     "return a successful response with status 200 (OK)" when {
       "the request is valid" in new Test {
-        MockRetrievePensionsRequestParser
-          .parse(rawData)
-          .returns(Right(requestData))
+        willUseValidator(returningSuccess(requestData))
 
         MockRetrievePensionsService
           .retrievePensions(requestData)
@@ -117,17 +111,13 @@ class RetrievePensionsControllerSpec
 
     "return the error as per spec" when {
       "the parser validation fails" in new Test {
-        MockRetrievePensionsRequestParser
-          .parse(rawData)
-          .returns(Left(ErrorWrapper(correlationId, NinoFormatError)))
+        willUseValidator(returning(NinoFormatError))
 
         runErrorTest(NinoFormatError)
       }
 
       "service errors occur" in new Test {
-        MockRetrievePensionsRequestParser
-          .parse(rawData)
-          .returns(Right(requestData))
+        willUseValidator(returningSuccess(requestData))
 
         MockRetrievePensionsService
           .retrievePensions(requestData)
@@ -143,7 +133,7 @@ class RetrievePensionsControllerSpec
     val controller = new RetrievePensionsController(
       authService = mockEnrolmentsAuthService,
       lookupService = mockMtdIdLookupService,
-      parser = mockRetrievePensionsRequestParser,
+      validatorFactory = mockRetrievePensionsValidatorFactory,
       service = mockRetrievePensionsService,
       cc = cc,
       idGenerator = mockIdGenerator

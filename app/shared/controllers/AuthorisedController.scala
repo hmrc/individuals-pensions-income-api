@@ -50,8 +50,6 @@ abstract class AuthorisedController(cc: ControllerComponents)(implicit ec: Execu
       authService.authorised(predicate(mtdId)).flatMap[Result] {
         case Right(userDetails) => block(UserRequest(userDetails.copy(mtdId = mtdId), request))
         case Left(mtdError)     => errorResponse(mtdError)
-//        case Left(ClientNotAuthenticatedError) => Future.successful(Forbidden(ClientNotAuthenticatedError.asJson))
-//        case Left(_)                           => Future.successful(InternalServerError(InternalError.asJson))
       }
     }
 
