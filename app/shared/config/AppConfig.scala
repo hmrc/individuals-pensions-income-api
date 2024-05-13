@@ -73,9 +73,6 @@ class AppConfig @Inject() (config: ServicesConfig, configuration: Configuration)
   def mtdNrsProxyBaseUrl: String                   = config.baseUrl("mtd-api-nrs-proxy")
   def confidenceLevelConfig: ConfidenceLevelConfig = configuration.get[ConfidenceLevelConfig](s"api.confidence-level-check")
 
-//  def apiDocumentationUrl: String =
-//    config.getConfString("api.documentation-url", defString = "https://developer.service.hmrc.gov.uk/api-documentation/docs/api")
-
   def apiStatus(version: Version): String = config.getString(s"api.$version.status")
 
   def isApiDeprecated(version: Version): Boolean = apiStatus(version) == "DEPRECATED"

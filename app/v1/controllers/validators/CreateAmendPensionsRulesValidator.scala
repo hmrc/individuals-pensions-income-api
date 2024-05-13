@@ -30,7 +30,7 @@ object CreateAmendPensionsRulesValidator extends RulesValidator[CreateAmendPensi
   private val resolveParsedNumber = ResolveParsedNumber()
   private val stringRegex         = "^[0-9a-zA-Z{À-˿’}\\- _&`():.'^]{1,90}$".r
 
-   def validateBusinessRules(parsed: CreateAmendPensionsRequestData): Validated[Seq[MtdError], CreateAmendPensionsRequestData] = {
+  def validateBusinessRules(parsed: CreateAmendPensionsRequestData): Validated[Seq[MtdError], CreateAmendPensionsRequestData] = {
     import parsed.body
     val validatedForeignPensions = body.foreignPensions match {
       case Some(foreignPensionsItems) =>
@@ -63,11 +63,6 @@ object CreateAmendPensionsRulesValidator extends RulesValidator[CreateAmendPensi
       validatePensionContributions(pensionContributions, i)
     }
   }
-
-//  private def resolveParsedCountryCode(value: Option[String]): Validated[List[MtdError], String] = value match {
-//    case None        => valid
-//    case Some(data) => ResolveParsedCountryCode(data)
-//  }
 
   private def resolveNonNegativeNumber(value: Option[BigDecimal], path: String): Validated[Seq[MtdError], Option[BigDecimal]] =
     ResolveParsedNumber(disallowZero = true)(value, path)
