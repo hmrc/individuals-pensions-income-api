@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package v1.controllers.requestParsers.validators.validations
+package shared.config
 
-import api.controllers.requestParsers.validators.validations.NoValidationErrors
-import shared.models.errors.MtdError
-import v1.models.QOPSRefFormatError
+import java.time.LocalDateTime
 
-object QOPSRefValidation {
+sealed trait Deprecation
 
-  def validateOptional(qopsRef: Option[String], path: String): List[MtdError] = qopsRef.fold(NoValidationErrors: List[MtdError]) { ref =>
-    if (ref.matches("^[0-9a-zA-Z{À-˿'}\\- _&`():.'^]{1,90}$")) NoValidationErrors else List(QOPSRefFormatError.copy(paths = Some(Seq(path))))
-  }
+object Deprecation {
+  case object NotDeprecated extends Deprecation
+
+  case class Deprecated(deprecatedOn: LocalDateTime, sunsetDate: Option[LocalDateTime]) extends Deprecation
 
 }

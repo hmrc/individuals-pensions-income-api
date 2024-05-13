@@ -20,7 +20,7 @@ import shared.UnitSpec
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors.{BadRequestError, ErrorWrapper, NinoFormatError, TaxYearFormatError}
 import v1.mocks.validators.MockRetrievePensionsValidator
-import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequest}
+import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequestData}
 
 class RetrievePensionsRequestParserSpec extends UnitSpec {
 
@@ -49,7 +49,7 @@ class RetrievePensionsRequestParserSpec extends UnitSpec {
           .returns(Nil)
 
         parser.parseRequest(retrievePensionsRawData) shouldBe
-          Right(RetrievePensionsRequest(Nino(nino), TaxYear.fromMtd(taxYear)))
+          Right(RetrievePensionsRequestData(Nino(nino), TaxYear.fromMtd(taxYear)))
       }
     }
 

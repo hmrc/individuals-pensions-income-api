@@ -341,7 +341,7 @@ class CreateAmendPensionsValidatorSpec extends UnitSpec with ValueFormatErrorMes
 
     val validator = new CreateAmendPensionsValidator()
 
-    MockedAppConfig.minimumPermittedTaxYear
+    MockAppConfig.minimumPermittedTaxYear
       .returns(2021)
       .anyNumberOfTimes()
 

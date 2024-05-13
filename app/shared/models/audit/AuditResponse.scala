@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-package v1.models.request.deletePensions
+package shared.models.audit
 
-import shared.models.domain.{Nino, TaxYear}
+import play.api.libs.json.{JsValue, Json, OWrites}
 
-case class DeletePensionsRequest(nino: Nino, taxYear: TaxYear)
+case class AuditResponse(httpStatus: Int, errors: Option[Seq[AuditError]], body: Option[JsValue])
+
+object AuditResponse {
+  implicit val writes: OWrites[AuditResponse] = Json.writes[AuditResponse]
+
+  def apply(httpStatus: Int, response: Either[Seq[AuditError], Option[JsValue]]): AuditResponse =
+    response match {
+      case Right(body) => AuditResponse(httpStatus, None, body)
+      case Left(errs)  => AuditResponse(httpStatus, Some(errs), None)
+    }
+
+}

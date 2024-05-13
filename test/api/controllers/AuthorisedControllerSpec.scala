@@ -19,6 +19,7 @@ package api.controllers
 import api.mocks.services.{MockEnrolmentsAuthService, MockMtdIdLookupService}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent}
+import shared.controllers.{AuthorisedController, ControllerBaseSpec}
 import shared.models.errors.{ClientNotAuthenticatedError, ClientNotAuthorisedError, InternalError, InvalidBearerTokenError, NinoFormatError}
 import shared.services.{EnrolmentsAuthService, MtdIdLookupService}
 import uk.gov.hmrc.auth.core.Enrolment

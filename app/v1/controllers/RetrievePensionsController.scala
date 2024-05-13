@@ -16,10 +16,10 @@
 
 package v1.controllers
 
-import api.controllers.{AuthorisedController, RequestContext, RequestHandlerOld}
+import api.controllers.RequestHandlerOld
 import play.api.mvc.{Action, AnyContent, ControllerComponents}
 import shared.config.AppConfig
-import shared.controllers.EndpointLogContext
+import shared.controllers.{AuthorisedController, EndpointLogContext, RequestContext}
 import shared.services.{EnrolmentsAuthService, MtdIdLookupService}
 import shared.utils.IdGenerator
 import v1.controllers.requestParsers.RetrievePensionsRequestParser

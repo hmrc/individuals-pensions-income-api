@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,29 @@
  * limitations under the License.
  */
 
-package v1.controllers.requestParsers.validators.validations
+package shared.models.audit
 
-import api.controllers.requestParsers.validators.validations.NoValidationErrors
-import shared.models.errors.MtdError
-import v1.models.SF74RefFormatError
+import play.api.libs.json.Json
+import shared.UnitSpec
+import shared.models.audit.AuditError
 
-object SF74RefValidation {
+class AuditErrorSpec extends UnitSpec {
 
-  def validateOptional(sf74Ref: Option[String], path: String): List[MtdError] = sf74Ref.fold(NoValidationErrors: List[MtdError]) { ref =>
-    if (ref.matches("^[0-9a-zA-Z{À-˿'}\\- _&`():.'^]{1,90}$")) NoValidationErrors else List(SF74RefFormatError.copy(paths = Some(Seq(path))))
+  private val auditError = AuditError("FORMAT_NINO")
+
+  "writes" when {
+    "passed an audit error model" should {
+      "produce valid json" in {
+
+        val json = Json.parse(s"""
+             |{
+             |  "errorCode": "FORMAT_NINO"
+             |}
+           """.stripMargin)
+
+        Json.toJson(auditError) shouldBe json
+      }
+    }
   }
 
 }

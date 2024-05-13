@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package v1.controllers.requestParsers
+package v1.models.request.createAmendPensions
 
-import api.controllers.requestParsers.RequestParser
 import shared.models.domain.{Nino, TaxYear}
-import v1.controllers.requestParsers.validators.RetrievePensionsValidator
-import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequest}
 
-import javax.inject.Inject
-
-class RetrievePensionsRequestParser @Inject() (val validator: RetrievePensionsValidator)
-    extends RequestParser[RetrievePensionsRawData, RetrievePensionsRequest] {
-
-  override protected def requestFor(data: RetrievePensionsRawData): RetrievePensionsRequest =
-    RetrievePensionsRequest(Nino(data.nino), TaxYear.fromMtd(data.taxYear))
-
-}
+case class CreateAmendPensionsRequestData(nino: Nino, taxYear: TaxYear, body: CreateAmendPensionsRequestBody)

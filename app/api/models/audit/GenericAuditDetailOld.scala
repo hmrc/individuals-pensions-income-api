@@ -16,10 +16,10 @@
 
 package api.models.audit
 
-import api.controllers.RequestContext
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, JsValue, OWrites}
-import shared.controllers.AuditHandlerOld
+import shared.controllers.{AuditHandlerOld, RequestContext}
+import shared.models.audit.AuditResponse
 import shared.models.auth.UserDetails
 
 case class GenericAuditDetailOld(userType: String,

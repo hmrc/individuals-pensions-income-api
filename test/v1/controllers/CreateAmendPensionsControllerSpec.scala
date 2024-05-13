@@ -16,11 +16,11 @@
 
 package v1.controllers
 
-import api.controllers.{ControllerBaseSpec, ControllerTestRunner}
-import api.models.audit.{AuditEvent, AuditResponse, GenericAuditDetailOld}
+import shared.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AnyContentAsJson, Result}
 import shared.config.MockAppConfig
+import shared.models.audit.{AuditEvent, AuditResponse, GenericAuditDetail}
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
@@ -88,7 +88,7 @@ class CreateAmendPensionsControllerSpec
   )
 
   private val rawData: CreateAmendPensionsRawData = CreateAmendPensionsRawData(
-    nino = nino,
+    nino = validNino,
     taxYear = taxYear,
     body = AnyContentAsJson(requestBodyJson)
   )
@@ -140,8 +140,8 @@ class CreateAmendPensionsControllerSpec
     overseasPensionContributions = Some(overseasPensionContributionsItem)
   )
 
-  private val requestData: CreateAmendPensionsRequest = CreateAmendPensionsRequest(
-    nino = Nino(nino),
+  private val requestData: CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
+    nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear),
     body = createAmendPensionsRequestBody
   )
@@ -189,7 +189,7 @@ class CreateAmendPensionsControllerSpec
     }
   }
 
-  trait Test extends ControllerTest with AuditEventChecking[GenericAuditDetailOld] {
+  trait Test extends ControllerTest with AuditEventChecking {
 
     val controller = new CreateAmendPensionsController(
       authService = mockEnrolmentsAuthService,
@@ -201,19 +201,20 @@ class CreateAmendPensionsControllerSpec
       idGenerator = mockIdGenerator
     )
 
-    protected def callController(): Future[Result] = controller.createAmendPensions(nino, taxYear)(fakePutRequest(requestBodyJson))
+    protected def callController(): Future[Result] = controller.createAmendPensions(validNino, taxYear)(fakePostRequest(requestBodyJson))
 
-    def event(auditResponse: AuditResponse, requestBody: Option[JsValue]): AuditEvent[GenericAuditDetailOld] =
+    def event(auditResponse: AuditResponse, requestBody: Option[JsValue]): AuditEvent[GenericAuditDetail] =
       AuditEvent(
         auditType = "CreateAmendPensionsIncome",
         transactionName = "create-amend-pensions-income",
-        detail = GenericAuditDetailOld(
+        detail = GenericAuditDetail(
           userType = "Individual",
           agentReferenceNumber = None,
-          params = Map("nino" -> nino, "taxYear" -> taxYear),
-          request = requestBody,
+          versionNumber = "1.0",
+          params = Map("nino" -> validNino, "taxYear" -> taxYear),
+          requestBody = requestBody,
           `X-CorrelationId` = correlationId,
-          response = auditResponse
+          auditResponse = auditResponse
         )
       )
 

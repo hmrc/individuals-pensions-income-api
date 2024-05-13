@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package v1.models.request.retrievePensions
+package shared.models.audit
 
-import shared.models.domain.{Nino, TaxYear}
-
-case class RetrievePensionsRequest(nino: Nino, taxYear: TaxYear)
+case class AuditEvent[T](
+    auditType: String,
+    transactionName: String,
+    detail: T
+)

@@ -18,7 +18,7 @@ package api.controllers
 
 import api.controllers.requestParsers.RequestParser
 import api.mocks.services.MockAuditService
-import api.models.audit.{AuditError, AuditEvent, AuditResponse, GenericAuditDetailOld}
+import api.models.audit.GenericAuditDetailOld
 import api.models.request.RawData
 import org.scalamock.handlers.CallHandler
 import play.api.http.{HeaderNames, Status}
@@ -27,7 +27,8 @@ import play.api.mvc.AnyContent
 import play.api.test.{FakeRequest, ResultExtractors}
 import shared.UnitSpec
 import shared.config.MockAppConfig
-import shared.controllers.{AuditHandlerOld, EndpointLogContext}
+import shared.controllers.{AuditHandlerOld, EndpointLogContext, RequestContext, UserRequest}
+import shared.models.audit.{AuditError, AuditEvent, AuditResponse}
 import shared.models.auth.UserDetails
 import shared.models.errors.{ErrorWrapper, NinoFormatError}
 import shared.models.outcomes.ResponseWrapper
@@ -131,7 +132,7 @@ class RequestHandlerOldSpec
             .withService(mockService.service)
             .withNoContentResult()
 
-          MockedAppConfig.allowRequestCannotBeFulfilledHeader(Version3).returns(true).anyNumberOfTimes()
+          MockAppConfig.allowRequestCannotBeFulfilledHeader(Version3).returns(true).anyNumberOfTimes()
 
           val userRequest2 = UserRequest[AnyContent](userDetails, FakeRequest().withHeaders(versionHeader, gtsHeader))
           val result       = requestHandler.handleRequest(InputRaw)(ctx, userRequest2, implicitly[ExecutionContext], mockAppConfig)
@@ -159,7 +160,7 @@ class RequestHandlerOldSpec
           parseRequest returns Right(Input)
           service returns Future.successful(Right(ResponseWrapper(serviceCorrelationId, Output)))
 
-          MockedAppConfig.allowRequestCannotBeFulfilledHeader(Version3).returns(false).anyNumberOfTimes()
+          MockAppConfig.allowRequestCannotBeFulfilledHeader(Version3).returns(false).anyNumberOfTimes()
 
           val userRequest2 = UserRequest[AnyContent](userDetails, FakeRequest().withHeaders(versionHeader, gtsHeader))
           val result       = requestHandler.handleRequest(InputRaw)(ctx, userRequest2, implicitly[ExecutionContext], mockAppConfig)

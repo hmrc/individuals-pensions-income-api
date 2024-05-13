@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package api.models.audit
+package shared.models.audit
 
+import api.models.audit.FlattenedGenericAuditDetail
 import shared.models.auth.UserDetails
 import shared.models.errors.TaxYearFormatError
 import shared.config.MockAppConfig

@@ -16,11 +16,11 @@
 
 package v1.controllers
 
-import api.controllers.{AuthorisedController, RequestContext, RequestHandlerOld}
+import api.controllers.RequestHandlerOld
 import play.api.libs.json.JsValue
 import play.api.mvc.{Action, AnyContentAsJson, ControllerComponents}
 import shared.config.AppConfig
-import shared.controllers.{AuditHandlerOld, EndpointLogContext}
+import shared.controllers.{AuditHandlerOld, AuthorisedController, EndpointLogContext, RequestContext}
 import shared.services.{AuditService, EnrolmentsAuthService, MtdIdLookupService}
 import shared.utils.IdGenerator
 import v1.controllers.requestParsers.CreateAmendPensionsRequestParser

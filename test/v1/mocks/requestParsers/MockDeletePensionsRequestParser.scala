@@ -20,7 +20,7 @@ import shared.models.errors.ErrorWrapper
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import v1.controllers.requestParsers.DeletePensionsRequestParser
-import v1.models.request.deletePensions.{DeletePensionsRawData, DeletePensionsRequest}
+import v1.models.request.deletePensions.{DeletePensionsRawData, DeletePensionsRequestData}
 
 trait MockDeletePensionsRequestParser extends MockFactory {
 
@@ -28,7 +28,7 @@ trait MockDeletePensionsRequestParser extends MockFactory {
 
   object MockDeletePensionsRequestParser {
 
-    def parse(data: DeletePensionsRawData): CallHandler[Either[ErrorWrapper, DeletePensionsRequest]] =
+    def parse(data: DeletePensionsRawData): CallHandler[Either[ErrorWrapper, DeletePensionsRequestData]] =
       (mockDeletePensionsRequestParser.parseRequest(_: DeletePensionsRawData)(_: String)).expects(data, *)
 
   }

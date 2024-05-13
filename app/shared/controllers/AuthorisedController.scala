@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package api.controllers
+package shared.controllers
 
 import play.api.mvc._
 import shared.models.auth.UserDetails
-import shared.models.errors.{ClientNotAuthenticatedError, InternalError, MtdError}
+import shared.models.errors.MtdError
 import shared.services.{EnrolmentsAuthService, MtdIdLookupService}
 import uk.gov.hmrc.auth.core.Enrolment
 import uk.gov.hmrc.auth.core.authorise.Predicate
@@ -48,9 +48,10 @@ abstract class AuthorisedController(cc: ControllerComponents)(implicit ec: Execu
     def invokeBlockWithAuthCheck[A](mtdId: String, request: Request[A], block: UserRequest[A] => Future[Result])(implicit
         headerCarrier: HeaderCarrier): Future[Result] = {
       authService.authorised(predicate(mtdId)).flatMap[Result] {
-        case Right(userDetails)                => block(UserRequest(userDetails.copy(mtdId = mtdId), request))
-        case Left(ClientNotAuthenticatedError) => Future.successful(Forbidden(ClientNotAuthenticatedError.asJson))
-        case Left(_)                           => Future.successful(InternalServerError(InternalError.asJson))
+        case Right(userDetails) => block(UserRequest(userDetails.copy(mtdId = mtdId), request))
+        case Left(mtdError)     => errorResponse(mtdError)
+//        case Left(ClientNotAuthenticatedError) => Future.successful(Forbidden(ClientNotAuthenticatedError.asJson))
+//        case Left(_)                           => Future.successful(InternalServerError(InternalError.asJson))
       }
     }
 

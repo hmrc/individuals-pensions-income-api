@@ -19,7 +19,7 @@ package v1.models.request.createAmendPensions
 import play.api.libs.json.{JsError, JsObject, Json}
 import shared.UnitSpec
 
-class CreateAmendPensionsRequestBodySpec extends UnitSpec {
+class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
 
   private val mtdJson = Json.parse(
     """

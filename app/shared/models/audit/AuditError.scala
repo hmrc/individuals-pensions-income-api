@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package api.models.audit
+package shared.models.audit
 
-case class AuditEvent[T](
-    auditType: String,
-    transactionName: String,
-    detail: T
-)
+import play.api.libs.json.{Json, OFormat}
+
+case class AuditError(errorCode: String)
+
+object AuditError {
+  implicit val format: OFormat[AuditError] = Json.format[AuditError]
+}

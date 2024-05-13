@@ -147,7 +147,7 @@ class CreateAmendPensionsRequestParserSpec extends UnitSpec {
         MockCreateAmendPensionsValidator.validate(amendPensionsRawData).returns(Nil)
 
         parser.parseRequest(amendPensionsRawData) shouldBe
-          Right(CreateAmendPensionsRequest(Nino(nino), TaxYear.fromMtd(taxYear), validRequestBodyModel))
+          Right(CreateAmendPensionsRequestData(Nino(nino), TaxYear.fromMtd(taxYear), validRequestBodyModel))
 
       }
     }

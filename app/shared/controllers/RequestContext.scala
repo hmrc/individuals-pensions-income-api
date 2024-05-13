@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package api.controllers
+package shared.controllers
 
-import shared.controllers.EndpointLogContext
 import shared.utils.IdGenerator
 import uk.gov.hmrc.http.HeaderCarrier
 

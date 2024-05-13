@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package api.models.audit
+package shared.models.audit
 
 import play.api.http.Status.{BAD_REQUEST, OK}
 import play.api.libs.json.{JsValue, Json}
-import shared.UnitSpec
 
-class AuditResponseSpec extends UnitSpec {
+object AuditResponseFixture {
 
-  val auditErrors: Seq[AuditError] = Seq(AuditError(errorCode = "FORMAT_NINO"), AuditError(errorCode = "FORMAT_TAX_YEAR"))
+  val auditErrors: Seq[AuditError] = List(AuditError(errorCode = "FORMAT_NINO"), AuditError(errorCode = "FORMAT_TAX_YEAR"))
   val body: JsValue                = Json.parse("""{ "aField" : "aValue" }""")
 
   val auditResponseModelWithBody: AuditResponse =
@@ -37,7 +36,7 @@ class AuditResponseSpec extends UnitSpec {
       response = Left(auditErrors)
     )
 
-  val successAuditResponseJson: JsValue = Json.parse(
+  val auditResponseJsonWithBody: JsValue = Json.parse(
     s"""
        |{
        |  "httpStatus": $OK,
@@ -61,19 +60,5 @@ class AuditResponseSpec extends UnitSpec {
        |}
     """.stripMargin
   )
-
-  "AuditResponse" when {
-    "written to JSON with a body" should {
-      "produce the expected JsObject" in {
-        Json.toJson(auditResponseModelWithBody) shouldBe successAuditResponseJson
-      }
-    }
-
-    "written to JSON with Audit Errors" should {
-      "produce the expected JsObject" in {
-        Json.toJson(auditResponseModelWithErrors) shouldBe auditResponseJsonWithErrors
-      }
-    }
-  }
 
 }

@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package v1.controllers.requestParsers
+package v1.models.request.retrievePensions
 
-import api.controllers.requestParsers.RequestParser
 import shared.models.domain.{Nino, TaxYear}
-import v1.controllers.requestParsers.validators.DeletePensionsValidator
-import v1.models.request.deletePensions.{DeletePensionsRawData, DeletePensionsRequest}
 
-import javax.inject.{Inject, Singleton}
-
-@Singleton
-class DeletePensionsRequestParser @Inject() (val validator: DeletePensionsValidator)
-    extends RequestParser[DeletePensionsRawData, DeletePensionsRequest] {
-
-  override protected def requestFor(data: DeletePensionsRawData): DeletePensionsRequest =
-    DeletePensionsRequest(Nino(data.nino), TaxYear.fromMtd(data.taxYear))
-
-}
+case class RetrievePensionsRequestData(nino: Nino, taxYear: TaxYear)

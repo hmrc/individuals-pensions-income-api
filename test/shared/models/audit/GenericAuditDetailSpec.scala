@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package api.models.audit
+package shared.models.audit
 
+import GenericAuditDetailFixture._
 import play.api.libs.json.Json
 import shared.UnitSpec
 
-class AuditErrorSpec extends UnitSpec {
+class GenericAuditDetailSpec extends UnitSpec {
 
-  private val auditError = AuditError("FORMAT_NINO")
+  "GenericAuditDetail" when {
+    "written to JSON (success)" should {
+      "produce the expected JsObject" in {
+        Json.toJson(genericAuditDetailModelSuccess) shouldBe genericAuditDetailJsonSuccess
+      }
+    }
 
-  "writes" when {
-    "passed an audit error model" should {
-      "produce valid json" in {
-
-        val json = Json.parse(s"""
-             |{
-             |  "errorCode": "FORMAT_NINO"
-             |}
-           """.stripMargin)
-
-        Json.toJson(auditError) shouldBe json
+    "written to JSON (error)" should {
+      "produce the expected JsObject" in {
+        Json.toJson(genericAuditDetailModelError) shouldBe genericAuditDetailJsonError
       }
     }
   }

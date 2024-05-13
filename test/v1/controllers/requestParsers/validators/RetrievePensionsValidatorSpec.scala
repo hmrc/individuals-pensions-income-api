@@ -32,7 +32,7 @@ class RetrievePensionsValidatorSpec extends UnitSpec {
 
     val validator = new RetrievePensionsValidator()
 
-    MockedAppConfig.minimumPermittedTaxYear
+    MockAppConfig.minimumPermittedTaxYear
       .returns(2021)
       .anyNumberOfTimes()
 

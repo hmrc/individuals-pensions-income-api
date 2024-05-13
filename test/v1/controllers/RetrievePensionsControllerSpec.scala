@@ -16,16 +16,16 @@
 
 package v1.controllers
 
-import api.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import play.api.mvc.Result
 import shared.config.MockAppConfig
+import shared.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import shared.models.domain.{Nino, TaxYear, Timestamp}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
 import v1.fixtures.RetrievePensionsControllerFixture
 import v1.mocks.requestParsers.MockRetrievePensionsRequestParser
 import v1.mocks.services.MockRetrievePensionsService
-import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequest}
+import v1.models.request.retrievePensions.{RetrievePensionsRawData, RetrievePensionsRequestData}
 import v1.models.response.retrievePensions.{ForeignPensionsItem, OverseasPensionContributions, RetrievePensionsResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -41,12 +41,12 @@ class RetrievePensionsControllerSpec
   private val taxYear = "2019-20"
 
   private val rawData: RetrievePensionsRawData = RetrievePensionsRawData(
-    nino = nino,
+    nino = validNino,
     taxYear = taxYear
   )
 
-  private val requestData: RetrievePensionsRequest = RetrievePensionsRequest(
-    nino = Nino(nino),
+  private val requestData: RetrievePensionsRequestData = RetrievePensionsRequestData(
+    nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear)
   )
 
@@ -149,7 +149,7 @@ class RetrievePensionsControllerSpec
       idGenerator = mockIdGenerator
     )
 
-    protected def callController(): Future[Result] = controller.handleRequest(nino, taxYear)(fakeGetRequest)
+    protected def callController(): Future[Result] = controller.handleRequest(validNino, taxYear)(fakeGetRequest)
   }
 
 }

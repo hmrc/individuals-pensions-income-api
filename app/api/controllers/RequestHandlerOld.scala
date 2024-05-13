@@ -25,7 +25,7 @@ import play.api.libs.json.{JsValue, Writes}
 import play.api.mvc.Result
 import play.api.mvc.Results.InternalServerError
 import shared.config.AppConfig
-import shared.controllers.{AuditHandlerOld, EndpointLogContext}
+import shared.controllers.{AuditHandlerOld, EndpointLogContext, RequestContext, RequestContextImplicits, UserRequest}
 import shared.models.errors.{ErrorWrapper, InternalError, RuleRequestCannotBeFulfilledError}
 import shared.models.outcomes.ResponseWrapper
 import shared.routing.Version
@@ -55,18 +55,18 @@ object RequestHandlerOld {
   }
 
   case class RequestHandlerBuilder[InputRaw <: RawData, Input, Output] private[RequestHandlerOld](
-      parser: RequestParser[InputRaw, Input],
-      service: Input => Future[Either[ErrorWrapper, ResponseWrapper[Output]]],
-      errorHandling: ErrorHandling = ErrorHandling.Default,
-      resultCreator: ResultCreator[InputRaw, Input, Output] = ResultCreator.noContent[InputRaw, Input, Output](),
-      auditHandler: Option[AuditHandlerOld] = None
+                                                                                                   parser: RequestParser[InputRaw, Input],
+                                                                                                   service: Input => Future[Either[ErrorWrapper, ResponseWrapper[Output]]],
+                                                                                                   errorHandling: ErrorHandling = ErrorHandling.Default,
+                                                                                                   resultCreator: ResultCreatorOld[InputRaw, Input, Output] = ResultCreatorOld.noContent[InputRaw, Input, Output](),
+                                                                                                   auditHandler: Option[AuditHandlerOld] = None
   ) extends RequestHandlerOld[InputRaw] {
 
     def handleRequest(
         rawData: InputRaw)(implicit ctx: RequestContext, request: UserRequest[_], ec: ExecutionContext, appConfig: AppConfig): Future[Result] =
       Delegate.handleRequest(rawData)
 
-    def withResultCreator(resultCreator: ResultCreator[InputRaw, Input, Output]): RequestHandlerBuilder[InputRaw, Input, Output] =
+    def withResultCreator(resultCreator: ResultCreatorOld[InputRaw, Input, Output]): RequestHandlerBuilder[InputRaw, Input, Output] =
       copy(resultCreator = resultCreator)
 
     def withErrorHandling(errorHandling: ErrorHandling): RequestHandlerBuilder[InputRaw, Input, Output] =
@@ -81,7 +81,7 @@ object RequestHandlerOld {
       * }}}
       */
     def withPlainJsonResult(successStatus: Int = Status.OK)(implicit ws: Writes[Output]): RequestHandlerBuilder[InputRaw, Input, Output] =
-      withResultCreator(ResultCreator.plainJson(successStatus))
+      withResultCreator(ResultCreatorOld.plainJson(successStatus))
 
     /** Shorthand for
       * {{{
@@ -89,7 +89,7 @@ object RequestHandlerOld {
       * }}}
       */
     def withNoContentResult(successStatus: Int = Status.NO_CONTENT): RequestHandlerBuilder[InputRaw, Input, Output] =
-      withResultCreator(ResultCreator.noContent(successStatus))
+      withResultCreator(ResultCreatorOld.noContent(successStatus))
 
     // Scoped as a private delegate so as to keep the logic completely separate from the configuration
     private object Delegate extends RequestHandlerOld[InputRaw] with Logging with RequestContextImplicits {
