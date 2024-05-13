@@ -16,15 +16,15 @@
 
 package v1.controllers
 
-import shared.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AnyContentAsJson, Result}
+import play.api.mvc.Result
 import shared.config.MockAppConfig
+import shared.controllers.{ControllerBaseSpec, ControllerTestRunner}
 import shared.models.audit.{AuditEvent, AuditResponse, GenericAuditDetail}
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
-import v1.mocks.requestParsers.MockCreateAmendPensionsRequestParser
+import v1.controllers.validators.MockCreateAmendPensionsValidatorFactory
 import v1.mocks.services.MockCreateAmendPensionsService
 import v1.models.request.createAmendPensions._
 
@@ -35,7 +35,7 @@ class CreateAmendPensionsControllerSpec
     extends ControllerBaseSpec
     with ControllerTestRunner
     with MockCreateAmendPensionsService
-    with MockCreateAmendPensionsRequestParser
+    with MockCreateAmendPensionsValidatorFactory
     with MockAppConfig {
 
   private val taxYear = "2019-20"
@@ -85,12 +85,6 @@ class CreateAmendPensionsControllerSpec
       |   ]
       |}
     """.stripMargin
-  )
-
-  private val rawData: CreateAmendPensionsRawData = CreateAmendPensionsRawData(
-    nino = validNino,
-    taxYear = taxYear,
-    body = AnyContentAsJson(requestBodyJson)
   )
 
   private val foreignPensionsItem: List[CreateAmendForeignPensionsItem] = List(
@@ -149,9 +143,7 @@ class CreateAmendPensionsControllerSpec
   "CreateAmendPensionsController" should {
     "return OK with no response body" when {
       "the request received is valid" in new Test {
-        MockCreateAmendPensionsRequestParser
-          .parse(rawData)
-          .returns(Right(requestData))
+        willUseValidator(returningSuccess(requestData))
 
         MockCreateAmendPensionsService
           .createAmendPensions(requestData)
@@ -168,17 +160,13 @@ class CreateAmendPensionsControllerSpec
 
     "return the error as per spec" when {
       "the parser validation fails" in new Test {
-        MockCreateAmendPensionsRequestParser
-          .parse(rawData)
-          .returns(Left(ErrorWrapper(correlationId, NinoFormatError)))
+        willUseValidator(returning(NinoFormatError))
 
         runErrorTestWithAudit(NinoFormatError, Some(requestBodyJson))
       }
 
       "service returns an error" in new Test {
-        MockCreateAmendPensionsRequestParser
-          .parse(rawData)
-          .returns(Right(requestData))
+        willUseValidator(returningSuccess(requestData))
 
         MockCreateAmendPensionsService
           .createAmendPensions(requestData)
@@ -194,7 +182,7 @@ class CreateAmendPensionsControllerSpec
     val controller = new CreateAmendPensionsController(
       authService = mockEnrolmentsAuthService,
       lookupService = mockMtdIdLookupService,
-      parser = mockCreateAmendPensionsRequestParser,
+      validatorFactory = mockCreateAmendPensionsValidatorFactory,
       service = mockCreateAmendPensionsService,
       auditService = mockAuditService,
       cc = cc,
