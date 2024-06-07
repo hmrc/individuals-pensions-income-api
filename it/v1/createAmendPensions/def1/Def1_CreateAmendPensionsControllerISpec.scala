@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.endpoints
+package v1.createAmendPensions.def1
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import play.api.http.HeaderNames.ACCEPT
@@ -27,7 +27,7 @@ import shared.stubs.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
 import support.IntegrationBaseSpec
 import v1.models._
 
-class CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
+class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
 
   private trait Test {
 

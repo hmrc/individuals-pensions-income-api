@@ -18,10 +18,18 @@ package v1.createAmendPensions.model.request
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, OWrites, Reads}
-import shared.utils.JsonUtils
+import shared.utils.{JsonUtils, JsonWritesUtil}
 import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 
 sealed trait CreateAmendPensionsRequestBody
+
+object CreateAmendPensionsRequestBody extends JsonWritesUtil {
+
+  implicit val writes: OWrites[CreateAmendPensionsRequestBody] = writesFrom { case a: Def1_CreateAmendPensionsRequestBody =>
+    implicitly[OWrites[Def1_CreateAmendPensionsRequestBody]].writes(a)
+  }
+
+}
 
 case class Def1_CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[CreateAmendForeignPensionsItem]],
                                                overseasPensionContributions: Option[Seq[CreateAmendOverseasPensionContributions]])
