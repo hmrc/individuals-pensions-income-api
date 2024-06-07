@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package v1.deletePensions.model.request
+package v1.retrievePensions
 
-import shared.models.domain.{Nino, TaxYear}
-import v1.deletePensions.DeletePensionsSchema
+import play.api.libs.json.Reads
+import shared.schema.DownstreamReadable
+import v1.retrievePensions.model.response.{Def1_RetrievePensionsResponse, RetrievePensionsResponse}
 
-sealed trait DeletePensionsRequestData {
-  def nino: Nino
-  def taxYear: TaxYear
+sealed trait RetrievePensionsSchema extends DownstreamReadable[RetrievePensionsResponse]
 
-  val schema: DeletePensionsSchema
-}
+object RetrievePensionsSchema {
 
-case class Def1_DeletePensionsRequestData(nino: Nino, taxYear: TaxYear) extends DeletePensionsRequestData {
-  override val schema: DeletePensionsSchema = DeletePensionsSchema.Def1
+  case object Def1 extends RetrievePensionsSchema {
+    type DownstreamResp = Def1_RetrievePensionsResponse
+    val connectorReads: Reads[DownstreamResp] = Def1_RetrievePensionsResponse.reads
+  }
+
 }

@@ -24,7 +24,7 @@ import play.api.test.Helpers.AUTHORIZATION
 import shared.models.errors._
 import shared.stubs.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
 import support.IntegrationBaseSpec
-import v1.fixtures.RetrievePensionsControllerFixture
+import v1.retrievePensions.def1.model.RetrievePensionsControllerFixture
 
 class Def1_RetrievePensionsControllerISpec extends IntegrationBaseSpec {
 

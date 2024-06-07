@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package v1.deletePensions.model.request
+package v1.retrievePensions
 
-import shared.models.domain.{Nino, TaxYear}
-import v1.deletePensions.DeletePensionsSchema
+import shared.config.AppConfig
+import shared.controllers.validators.Validator
+import v1.retrievePensions.def1.Def1_RetrievePensionsValidator
+import v1.retrievePensions.model.request.RetrievePensionsRequestData
 
-sealed trait DeletePensionsRequestData {
-  def nino: Nino
-  def taxYear: TaxYear
+import javax.inject.Inject
 
-  val schema: DeletePensionsSchema
-}
+class RetrievePensionsValidatorFactory @Inject() (appConfig: AppConfig) {
 
-case class Def1_DeletePensionsRequestData(nino: Nino, taxYear: TaxYear) extends DeletePensionsRequestData {
-  override val schema: DeletePensionsSchema = DeletePensionsSchema.Def1
+  def validator(nino: String, taxYear: String): Validator[RetrievePensionsRequestData] =
+    new Def1_RetrievePensionsValidator(nino, taxYear)(appConfig)
+
 }

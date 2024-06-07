@@ -20,9 +20,9 @@ import shared.models.domain.{Nino, TaxYear}
 import v1.createAmendPensions.CreateAmendPensionsSchema
 
 sealed trait CreateAmendPensionsRequestData {
-  val nino: Nino
-  val taxYear: TaxYear
-  val body: CreateAmendPensionsRequestBody
+  def nino: Nino
+  def taxYear: TaxYear
+  def body: CreateAmendPensionsRequestBody
 
   val schema: CreateAmendPensionsSchema
 }

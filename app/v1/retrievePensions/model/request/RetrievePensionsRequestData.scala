@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package v1.deletePensions.model.request
+package v1.retrievePensions.model.request
 
 import shared.models.domain.{Nino, TaxYear}
-import v1.deletePensions.DeletePensionsSchema
+import v1.retrievePensions.RetrievePensionsSchema
 
-sealed trait DeletePensionsRequestData {
+sealed trait RetrievePensionsRequestData {
   def nino: Nino
   def taxYear: TaxYear
 
-  val schema: DeletePensionsSchema
+  val schema: RetrievePensionsSchema
 }
 
-case class Def1_DeletePensionsRequestData(nino: Nino, taxYear: TaxYear) extends DeletePensionsRequestData {
-  override val schema: DeletePensionsSchema = DeletePensionsSchema.Def1
+case class Def1_RetrievePensionsRequestData(nino: Nino, taxYear: TaxYear) extends RetrievePensionsRequestData {
+  val schema: RetrievePensionsSchema = RetrievePensionsSchema.Def1
 }
