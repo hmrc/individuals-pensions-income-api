@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
+package v1.createAmendPensions.def1
 
 import cats.data.Validated
 import cats.data.Validated.Invalid
@@ -22,17 +22,18 @@ import cats.implicits.toFoldableOps
 import shared.controllers.validators.RulesValidator
 import shared.controllers.validators.resolvers.{ResolveParsedCountryCode, ResolveParsedNumber}
 import shared.models.errors.MtdError
-import v1.models.{CustomerRefFormatError, DoubleTaxationArticleFormatError, DoubleTaxationTreatyFormatError, QOPSRefFormatError, SF74RefFormatError}
-import v1.models.request.createAmendPensions.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions, CreateAmendPensionsRequestData}
+import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
+import v1.createAmendPensions.model.request.Def1_CreateAmendPensionsRequestData
+import v1.models._
 
-object CreateAmendPensionsRulesValidator extends RulesValidator[CreateAmendPensionsRequestData] {
+object Def1_CreateAmendPensionsRulesValidator extends RulesValidator[Def1_CreateAmendPensionsRequestData] {
 
   private val resolveParsedNumber = ResolveParsedNumber()
   private val stringRegex         = "^[0-9a-zA-Z{À-˿’}\\- _&`():.'^]{1,90}$".r
 
-  def validateBusinessRules(parsed: CreateAmendPensionsRequestData): Validated[Seq[MtdError], CreateAmendPensionsRequestData] = {
-    import parsed.body
-    val validatedForeignPensions = body.foreignPensions match {
+  def validateBusinessRules(parsed: Def1_CreateAmendPensionsRequestData): Validated[Seq[MtdError], Def1_CreateAmendPensionsRequestData] = {
+    import parsed.body._
+    val validatedForeignPensions = foreignPensions match {
       case Some(foreignPensionsItems) =>
         val foreignPensionsWithIndex = foreignPensionsItems.zipWithIndex.toList
         validateForeignPensions(foreignPensionsWithIndex)
@@ -40,7 +41,7 @@ object CreateAmendPensionsRulesValidator extends RulesValidator[CreateAmendPensi
 
     }
 
-    val validatedPensionContributions = body.overseasPensionContributions match {
+    val validatedPensionContributions = overseasPensionContributions match {
       case Some(pensionContributions) =>
         val overseasPensionContributionsWithIndex = pensionContributions.zipWithIndex.toList
         validatePensionContributions(overseasPensionContributionsWithIndex)

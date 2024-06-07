@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
+package v1.createAmendPensions
 
 import cats.data.Validated
 import cats.data.Validated.{Invalid, Valid}
@@ -23,7 +23,7 @@ import org.scalamock.scalatest.MockFactory
 import play.api.libs.json.JsValue
 import shared.controllers.validators.Validator
 import shared.models.errors.MtdError
-import v1.models.request.createAmendPensions.CreateAmendPensionsRequestData
+import v1.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
 trait MockCreateAmendPensionsValidatorFactory extends MockFactory {
 

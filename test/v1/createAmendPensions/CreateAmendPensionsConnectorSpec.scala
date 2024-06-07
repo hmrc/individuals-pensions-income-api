@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package v1.connector
+package v1.createAmendPensions
 
 import shared.config.MockAppConfig
 import shared.connectors.ConnectorSpec
 import shared.mocks.MockHttpClient
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.outcomes.ResponseWrapper
-import v1.connectors.CreateAmendPensionsConnector
-import v1.models.request.createAmendPensions._
+import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
+import v1.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
 
 import scala.concurrent.Future
 
@@ -73,12 +73,12 @@ class CreateAmendPensionsConnectorSpec extends ConnectorSpec {
     )
   )
 
-  private val amendPensionsRequestBody: CreateAmendPensionsRequestBody = CreateAmendPensionsRequestBody(
+  private val amendPensionsRequestBody: Def1_CreateAmendPensionsRequestBody = Def1_CreateAmendPensionsRequestBody(
     foreignPensions = Some(foreignPensionsModel),
     overseasPensionContributions = Some(overseasPensionContributionsModel)
   )
 
-  private def amendPensionsRequest(taxYear: String): CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
+  private def amendPensionsRequest(taxYear: String): Def1_CreateAmendPensionsRequestData = Def1_CreateAmendPensionsRequestData(
     nino = Nino(nino),
     taxYear = TaxYear.fromMtd(taxYear),
     body = amendPensionsRequestBody

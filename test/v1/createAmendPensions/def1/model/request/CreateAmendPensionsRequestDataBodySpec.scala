@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package v1.models.request.createAmendPensions
+package v1.createAmendPensions.def1.model.request
 
 import play.api.libs.json.{JsError, JsObject, Json}
 import shared.UnitSpec
+import v1.createAmendPensions.model.request.Def1_CreateAmendPensionsRequestBody
 
 class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
 
@@ -157,7 +158,7 @@ class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
     )
   )
 
-  private val requestBodyModel = CreateAmendPensionsRequestBody(
+  private val requestBodyModel = Def1_CreateAmendPensionsRequestBody(
     Some(foreignPensionsModel),
     Some(overseasPensionContributionsModel)
   )
@@ -165,14 +166,14 @@ class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
   "AmendPensionsRequestBody" when {
     "read from valid JSON" should {
       "produce the expected AmendPensionsRequestBody object" in {
-        mtdJson.as[CreateAmendPensionsRequestBody] shouldBe requestBodyModel
+        mtdJson.as[Def1_CreateAmendPensionsRequestBody] shouldBe requestBodyModel
       }
     }
 
     "read from empty JSON" should {
       "produce the expected AmendPensionsRequestBody object" in {
         val emptyJson = JsObject.empty
-        emptyJson.as[CreateAmendPensionsRequestBody] shouldBe CreateAmendPensionsRequestBody.empty
+        emptyJson.as[Def1_CreateAmendPensionsRequestBody] shouldBe Def1_CreateAmendPensionsRequestBody.empty
       }
     }
 
@@ -187,7 +188,7 @@ class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
           """.stripMargin
         )
 
-        json.as[CreateAmendPensionsRequestBody] shouldBe requestBodyModel.copy(foreignPensions = None, overseasPensionContributions = None)
+        json.as[Def1_CreateAmendPensionsRequestBody] shouldBe requestBodyModel.copy(foreignPensions = None, overseasPensionContributions = None)
       }
     }
 
@@ -210,7 +211,7 @@ class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
           """.stripMargin
         )
 
-        json.validate[CreateAmendPensionsRequestBody] shouldBe a[JsError]
+        json.validate[Def1_CreateAmendPensionsRequestBody] shouldBe a[JsError]
       }
     }
 

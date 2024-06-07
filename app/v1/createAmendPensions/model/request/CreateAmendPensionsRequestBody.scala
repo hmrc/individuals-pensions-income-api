@@ -14,26 +14,30 @@
  * limitations under the License.
  */
 
-package v1.models.request.createAmendPensions
+package v1.createAmendPensions.model.request
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, OWrites, Reads}
 import shared.utils.JsonUtils
+import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 
-case class CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[CreateAmendForeignPensionsItem]],
-                                          overseasPensionContributions: Option[Seq[CreateAmendOverseasPensionContributions]])
+sealed trait CreateAmendPensionsRequestBody
 
-object CreateAmendPensionsRequestBody extends JsonUtils {
-  val empty: CreateAmendPensionsRequestBody = CreateAmendPensionsRequestBody(None, None)
+case class Def1_CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[CreateAmendForeignPensionsItem]],
+                                               overseasPensionContributions: Option[Seq[CreateAmendOverseasPensionContributions]])
+    extends CreateAmendPensionsRequestBody
 
-  implicit val reads: Reads[CreateAmendPensionsRequestBody] = (
+object Def1_CreateAmendPensionsRequestBody extends JsonUtils {
+  val empty: Def1_CreateAmendPensionsRequestBody = Def1_CreateAmendPensionsRequestBody(None, None)
+
+  implicit val reads: Reads[Def1_CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPensions").readNullable[Seq[CreateAmendForeignPensionsItem]].mapEmptySeqToNone and
       (JsPath \ "overseasPensionContributions").readNullable[Seq[CreateAmendOverseasPensionContributions]].mapEmptySeqToNone
-  )(CreateAmendPensionsRequestBody.apply _)
+  )(Def1_CreateAmendPensionsRequestBody.apply _)
 
-  implicit val writes: OWrites[CreateAmendPensionsRequestBody] = (
+  implicit val writes: OWrites[Def1_CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPension").writeNullable[Seq[CreateAmendForeignPensionsItem]] and
       (JsPath \ "overseasPensionContribution").writeNullable[Seq[CreateAmendOverseasPensionContributions]]
-  )(unlift(CreateAmendPensionsRequestBody.unapply))
+  )(unlift(Def1_CreateAmendPensionsRequestBody.unapply))
 
 }

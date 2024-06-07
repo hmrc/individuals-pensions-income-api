@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package v1.connectors
+package v1.createAmendPensions
 
 import shared.config.AppConfig
 import shared.connectors.DownstreamUri.{IfsUri, TaxYearSpecificIfsUri}
 import shared.connectors.httpparsers.StandardDownstreamHttpParser.readsEmpty
 import shared.connectors.{BaseDownstreamConnector, DownstreamOutcome}
-import uk.gov.hmrc.http.HttpReadsInstances.readFromJson
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
-import v1.models.request.createAmendPensions.CreateAmendPensionsRequestData
+import v1.createAmendPensions.model.request.{CreateAmendPensionsRequestData, Def1_CreateAmendPensionsRequestData}
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -31,19 +30,22 @@ import scala.concurrent.{ExecutionContext, Future}
 class CreateAmendPensionsConnector @Inject() (val http: HttpClient, val appConfig: AppConfig) extends BaseDownstreamConnector {
 
   def createAmendPensions(request: CreateAmendPensionsRequestData)(implicit
-                                                                   hc: HeaderCarrier,
-                                                                   ec: ExecutionContext,
-                                                                   correlationId: String): Future[DownstreamOutcome[Unit]] = {
+      hc: HeaderCarrier,
+      ec: ExecutionContext,
+      correlationId: String): Future[DownstreamOutcome[Unit]] = {
 
-    import request._
+    request match {
+      case def1: Def1_CreateAmendPensionsRequestData =>
+        import def1._
+        val downstreamUrl = if (taxYear.useTaxYearSpecificApi) {
+          TaxYearSpecificIfsUri[Unit](s"income-tax/income/pensions/${taxYear.asTysDownstream}/$nino")
+        } else {
+          IfsUri[Unit](s"income-tax/income/pensions/$nino/${taxYear.asMtd}")
+        }
 
-    val downstreamUrl = if (taxYear.useTaxYearSpecificApi) {
-      TaxYearSpecificIfsUri[Unit](s"income-tax/income/pensions/${taxYear.asTysDownstream}/$nino")
-    } else {
-      IfsUri[Unit](s"income-tax/income/pensions/$nino/${taxYear.asMtd}")
+        put(def1.body, downstreamUrl)
     }
 
-    put(request.body, downstreamUrl)
   }
 
 }

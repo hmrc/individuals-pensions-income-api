@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package v1.mocks.services
+package v1.createAmendPensions
 
-import shared.services.ServiceOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import shared.controllers.RequestContext
-import v1.models.request.createAmendPensions.CreateAmendPensionsRequestData
-import v1.services.CreateAmendPensionsService
+import shared.services.ServiceOutcome
+import v1.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
 import scala.concurrent.{ExecutionContext, Future}
 

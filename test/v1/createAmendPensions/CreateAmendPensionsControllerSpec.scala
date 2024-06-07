@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers
+package v1.createAmendPensions
 
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
@@ -24,9 +24,8 @@ import shared.models.audit.{AuditEvent, AuditResponse, GenericAuditDetail}
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
-import v1.controllers.validators.MockCreateAmendPensionsValidatorFactory
-import v1.mocks.services.MockCreateAmendPensionsService
-import v1.models.request.createAmendPensions._
+import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
+import v1.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -129,12 +128,12 @@ class CreateAmendPensionsControllerSpec
     )
   )
 
-  private val createAmendPensionsRequestBody: CreateAmendPensionsRequestBody = CreateAmendPensionsRequestBody(
+  private val createAmendPensionsRequestBody: Def1_CreateAmendPensionsRequestBody = Def1_CreateAmendPensionsRequestBody(
     foreignPensions = Some(foreignPensionsItem),
     overseasPensionContributions = Some(overseasPensionContributionsItem)
   )
 
-  private val requestData: CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
+  private val requestData: Def1_CreateAmendPensionsRequestData = Def1_CreateAmendPensionsRequestData(
     nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear),
     body = createAmendPensionsRequestBody

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package v1.services
+package v1.createAmendPensions
 
 import cats.implicits._
 import shared.controllers.RequestContext
 import shared.models.errors._
 import shared.services.{BaseService, ServiceOutcome}
-import v1.connectors.CreateAmendPensionsConnector
-import v1.models.request.createAmendPensions.CreateAmendPensionsRequestData
+import v1.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}

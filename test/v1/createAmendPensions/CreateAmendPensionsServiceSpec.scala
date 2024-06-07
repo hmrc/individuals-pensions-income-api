@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package v1.services
+package v1.createAmendPensions
 
 import shared.controllers.EndpointLogContext
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
 import shared.services.ServiceSpec
-import v1.mocks.connectors.MockCreateAmendPensionsConnector
-import v1.models.request.createAmendPensions._
+import v1.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
+import v1.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
 
 import scala.concurrent.Future
 
@@ -73,10 +73,10 @@ class CreateAmendPensionsServiceSpec extends ServiceSpec {
     )
   )
 
-  val amendPensionsRequest: CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
+  val amendPensionsRequest: Def1_CreateAmendPensionsRequestData = Def1_CreateAmendPensionsRequestData(
     nino = Nino(nino),
     taxYear = TaxYear.fromMtd(taxYear),
-    body = CreateAmendPensionsRequestBody(
+    body = Def1_CreateAmendPensionsRequestBody(
       foreignPensions = Some(foreignPensionsModel),
       overseasPensionContributions = Some(overseasPensionContributionsModel)
     )

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
+package v1.createAmendPensions.def1
 
 import cats.data.Validated
 import cats.implicits._
@@ -24,27 +24,21 @@ import shared.controllers.validators.Validator
 import shared.controllers.validators.resolvers.{ResolveNino, ResolveNonEmptyJsonObject, ResolveTaxYearMinimum}
 import shared.models.domain.TaxYear
 import shared.models.errors.MtdError
-import v1.controllers.validators.CreateAmendPensionsRulesValidator.validateBusinessRules
-import v1.models.request.createAmendPensions.{CreateAmendPensionsRequestBody, CreateAmendPensionsRequestData}
+import v1.createAmendPensions.def1.Def1_CreateAmendPensionsRulesValidator.validateBusinessRules
+import v1.createAmendPensions.model.request.{CreateAmendPensionsRequestData, Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
 
-import javax.inject.Inject
+class Def1_CreateAmendPensionsValidator(nino: String, taxYear: String, body: JsValue)(appConfig: AppConfig)
+    extends Validator[CreateAmendPensionsRequestData] {
 
-class CreateAmendPensionsValidatorFactory @Inject() (appConfig: AppConfig) {
-
-  private val resolveJson         = new ResolveNonEmptyJsonObject[CreateAmendPensionsRequestBody]()
+  private val resolveJson         = new ResolveNonEmptyJsonObject[Def1_CreateAmendPensionsRequestBody]()
   private lazy val minimumTaxYear = appConfig.minimumPermittedTaxYear
   private lazy val resolveTaxYear = ResolveTaxYearMinimum(TaxYear.fromDownstreamInt(minimumTaxYear))
 
-  def validator(nino: String, taxYear: String, body: JsValue): Validator[CreateAmendPensionsRequestData] =
-    new Validator[CreateAmendPensionsRequestData] {
-
-      def validate: Validated[Seq[MtdError], CreateAmendPensionsRequestData] =
-        (
-          ResolveNino(nino),
-          resolveTaxYear(taxYear),
-          resolveJson(body)
-        ).mapN(CreateAmendPensionsRequestData) andThen validateBusinessRules
-
-    }
+  def validate: Validated[Seq[MtdError], CreateAmendPensionsRequestData] =
+    (
+      ResolveNino(nino),
+      resolveTaxYear(taxYear),
+      resolveJson(body)
+    ).mapN(Def1_CreateAmendPensionsRequestData) andThen validateBusinessRules
 
 }

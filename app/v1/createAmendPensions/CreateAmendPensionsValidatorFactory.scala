@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-package v1.models.request.createAmendPensions
+package v1.createAmendPensions
 
-import shared.models.domain.{Nino, TaxYear}
+import play.api.libs.json.JsValue
+import shared.config.AppConfig
+import shared.controllers.validators.Validator
+import v1.createAmendPensions.def1.Def1_CreateAmendPensionsValidator
+import v1.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
-case class CreateAmendPensionsRequestData(nino: Nino, taxYear: TaxYear, body: CreateAmendPensionsRequestBody)
+import javax.inject.Inject
+
+class CreateAmendPensionsValidatorFactory @Inject() (appConfig: AppConfig) {
+
+  def validator(nino: String, taxYear: String, body: JsValue): Validator[CreateAmendPensionsRequestData] =
+    new Def1_CreateAmendPensionsValidator(nino, taxYear, body)(appConfig)
+
+}
