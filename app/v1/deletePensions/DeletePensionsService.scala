@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package v1.services
+package v1.deletePensions
 
 import cats.implicits._
 import shared.controllers.RequestContext
 import shared.models.errors._
 import shared.services.{BaseService, ServiceOutcome}
-import v1.connectors.DeletePensionsIncomeConnector
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.DeletePensionsRequestData
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
+package v1.deletePensions.def1
 
 import shared.UnitSpec
 import shared.config.{AppConfig, MockAppConfig}
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.Def1_DeletePensionsRequestData
 
-class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
+class Def1_DeletePensionsValidatorSpec extends UnitSpec with MockAppConfig {
 
   private implicit val correlationId: String = "1234"
   private val validNino                      = "AA123456A"
@@ -33,24 +33,26 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
 
   implicit val appConfig: AppConfig = mockAppConfig
 
-  val validatorFactory = new DeletePensionsValidatorFactory(mockAppConfig)
+  private def validator(nino: String, taxYear: String) = new Def1_DeletePensionsValidator(nino, taxYear)(mockAppConfig)
 
-  private def validator(nino: String, taxYear: String) = validatorFactory.validator(nino, taxYear)
-
-  MockAppConfig.minimumPermittedTaxYear
-    .returns(2020)
-    .anyNumberOfTimes()
+  private def setupMocks() = {
+    MockAppConfig.minimumPermittedTaxYear
+      .returns(2020)
+      .anyNumberOfTimes()
+  }
 
   "running a validation" should {
     "return no errors" when {
       "a valid request is supplied" in {
+        setupMocks()
         val result = validator(validNino, validTaxYear).validateAndWrapResult()
-        result shouldBe Right(DeletePensionsRequestData(parsedNino, parsedTaxYear))
+        result shouldBe Right(Def1_DeletePensionsRequestData(parsedNino, parsedTaxYear))
       }
     }
 
     "return NinoFormatError error" when {
       "an invalid nino is supplied" in {
+        setupMocks()
         val result = validator("A12344A", validTaxYear).validateAndWrapResult()
         result shouldBe Left(
           ErrorWrapper(correlationId, NinoFormatError)
@@ -60,6 +62,7 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
 
     "return TaxYearFormatError error" when {
       "an invalid tax year is supplied" in {
+        setupMocks()
         val result = validator(validNino, "201718").validateAndWrapResult()
         result shouldBe Left(
           ErrorWrapper(correlationId, TaxYearFormatError)
@@ -69,6 +72,7 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
 
     "return RuleTaxYearRangeInvalidError error" when {
       "an invalid tax year range is supplied" in {
+        setupMocks()
         val result = validator(validNino, "2016-17").validateAndWrapResult()
         result shouldBe Left(
           ErrorWrapper(correlationId, RuleTaxYearNotSupportedError)
@@ -78,6 +82,7 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
 
     "return RuleTaxYearNotSupportedError error" when {
       "an invalid tax year is supplied" in {
+        setupMocks()
         val result = validator(validNino, "2017-19").validateAndWrapResult()
         result shouldBe Left(
           ErrorWrapper(correlationId, RuleTaxYearRangeInvalidError)
@@ -87,6 +92,7 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig {
 
     "return multiple errors" when {
       "request supplied has multiple errors" in {
+        setupMocks()
         val result = validator("not-a-nino", "2017-19").validateAndWrapResult()
 
         result shouldBe Left(

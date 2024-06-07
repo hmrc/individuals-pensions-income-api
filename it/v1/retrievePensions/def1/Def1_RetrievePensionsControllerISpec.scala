@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.endpoints
+package v1.retrievePensions.def1
 
 import play.api.http.HeaderNames.ACCEPT
 import play.api.http.Status._
@@ -26,7 +26,7 @@ import shared.stubs.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
 import support.IntegrationBaseSpec
 import v1.fixtures.RetrievePensionsControllerFixture
 
-class RetrievePensionsControllerISpec extends IntegrationBaseSpec {
+class Def1_RetrievePensionsControllerISpec extends IntegrationBaseSpec {
 
   private trait Test {
 

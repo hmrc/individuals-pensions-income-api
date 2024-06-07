@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package v1.services
+package v1.deletePensions
 
 import shared.controllers.EndpointLogContext
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
 import shared.services.ServiceSpec
-import v1.mocks.connectors.MockDeletePensionsIncomeConnector
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
 
 import scala.concurrent.Future
 
@@ -34,7 +33,7 @@ class DeletePensionsServiceSpec extends ServiceSpec {
     private val nino    = Nino("AA112233A")
     private val taxYear = TaxYear.fromMtd("2019-20")
 
-    val request: DeletePensionsRequestData = DeletePensionsRequestData(
+    val request: DeletePensionsRequestData = Def1_DeletePensionsRequestData(
       nino = nino,
       taxYear = taxYear
     )

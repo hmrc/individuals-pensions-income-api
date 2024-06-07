@@ -14,31 +14,25 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
+package v1.deletePensions.def1
 
 import cats.data.Validated
-import cats.implicits.catsSyntaxTuple2Semigroupal
+import cats.implicits._
 import shared.config.AppConfig
 import shared.controllers.validators.Validator
 import shared.controllers.validators.resolvers.{ResolveNino, ResolveTaxYearMinimum}
 import shared.models.domain.TaxYear
 import shared.models.errors.MtdError
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
 
-import javax.inject.Inject
-
-class DeletePensionsValidatorFactory @Inject() (appConfig: AppConfig) {
+class Def1_DeletePensionsValidator(nino: String, taxYear: String)(appConfig: AppConfig) extends Validator[DeletePensionsRequestData] {
 
   private lazy val minimumTaxYear = appConfig.minimumPermittedTaxYear
   private lazy val resolveTaxYear = ResolveTaxYearMinimum(TaxYear.fromDownstreamInt(minimumTaxYear))
 
-  def validator(nino: String, taxYear: String): Validator[DeletePensionsRequestData] = new Validator[DeletePensionsRequestData] {
-    def validate: Validated[Seq[MtdError], DeletePensionsRequestData] = (
-
-      ResolveNino(nino),
-      resolveTaxYear(taxYear)
-    ).mapN(DeletePensionsRequestData)
-
-  }
+  def validate: Validated[Seq[MtdError], DeletePensionsRequestData] = (
+    ResolveNino(nino),
+    resolveTaxYear(taxYear)
+  ).mapN(Def1_DeletePensionsRequestData)
 
 }

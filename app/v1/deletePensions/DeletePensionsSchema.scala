@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package v1.models.request.deletePensions
+package v1.deletePensions
 
-import shared.models.domain.{Nino, TaxYear}
+sealed trait DeletePensionsSchema
 
-case class DeletePensionsRequestData(nino: Nino, taxYear: TaxYear)
+object DeletePensionsSchema {
+
+  case object Def1 extends DeletePensionsSchema
+
+}

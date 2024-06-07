@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package v1.connector
+package v1.deletePensions
 
 import shared.connectors.ConnectorSpec
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors.{InternalError, NinoFormatError}
 import shared.models.outcomes.ResponseWrapper
-import v1.connectors.DeletePensionsIncomeConnector
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
 
 import scala.concurrent.Future
 
@@ -35,7 +34,7 @@ class DeletePensionsConnectorSpec extends ConnectorSpec {
     val nino: String = "AA111111A"
 
     protected val request: DeletePensionsRequestData =
-      DeletePensionsRequestData(
+      Def1_DeletePensionsRequestData(
         nino = Nino(nino),
         taxYear = taxYear
       )

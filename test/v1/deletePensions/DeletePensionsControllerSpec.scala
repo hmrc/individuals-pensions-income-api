@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers
+package v1.deletePensions
 
 import play.api.libs.json.JsValue
 import play.api.mvc.Result
@@ -24,9 +24,7 @@ import shared.models.audit.{AuditEvent, AuditResponse, GenericAuditDetail}
 import shared.models.domain.{Nino, TaxYear}
 import shared.models.errors._
 import shared.models.outcomes.ResponseWrapper
-import v1.controllers.validators.MockDeletePensionsValidatorFactory
-import v1.mocks.services.MockDeletePensionsService
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -40,7 +38,7 @@ class DeletePensionsControllerSpec
 
   private val taxYear = "2021-22"
 
-  private val requestData: DeletePensionsRequestData = DeletePensionsRequestData(
+  private val requestData: DeletePensionsRequestData = Def1_DeletePensionsRequestData(
     nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear)
   )
@@ -78,7 +76,7 @@ class DeletePensionsControllerSpec
     }
   }
 
-  trait Test extends ControllerTest with AuditEventChecking{
+  trait Test extends ControllerTest with AuditEventChecking {
 
     val controller = new DeletePensionsController(
       authService = mockEnrolmentsAuthService,

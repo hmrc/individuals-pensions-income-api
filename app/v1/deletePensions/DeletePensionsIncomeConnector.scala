@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package v1.connectors
+package v1.deletePensions
 
 import shared.config.AppConfig
-import shared.connectors.{BaseDownstreamConnector, DownstreamOutcome}
 import shared.connectors.DownstreamUri.{IfsUri, TaxYearSpecificIfsUri}
 import shared.connectors.httpparsers.StandardDownstreamHttpParser.readsEmpty
+import shared.connectors.{BaseDownstreamConnector, DownstreamOutcome}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpClient}
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.DeletePensionsRequestData
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -29,8 +29,10 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class DeletePensionsIncomeConnector @Inject() (val http: HttpClient, val appConfig: AppConfig) extends BaseDownstreamConnector {
 
-  def deletePensionsIncome(
-      request: DeletePensionsRequestData)(implicit hc: HeaderCarrier, ec: ExecutionContext, correlationId: String): Future[DownstreamOutcome[Unit]] = {
+  def deletePensionsIncome(request: DeletePensionsRequestData)(implicit
+      hc: HeaderCarrier,
+      ec: ExecutionContext,
+      correlationId: String): Future[DownstreamOutcome[Unit]] = {
 
     import request._
 

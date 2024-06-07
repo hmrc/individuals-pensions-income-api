@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers
+package v1.deletePensions
 
 import play.api.mvc.{Action, AnyContent, ControllerComponents}
 import shared.config.AppConfig
@@ -22,8 +22,6 @@ import shared.controllers._
 import shared.routing.Version1
 import shared.services.{AuditService, EnrolmentsAuthService, MtdIdLookupService}
 import shared.utils.IdGenerator
-import v1.controllers.validators.DeletePensionsValidatorFactory
-import v1.services.DeletePensionsService
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package v1.controllers.validators
-
+package v1.deletePensions
 
 import cats.data.Validated
 import cats.data.Validated.{Invalid, Valid}
@@ -23,7 +22,7 @@ import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import shared.controllers.validators.Validator
 import shared.models.errors.MtdError
-import v1.models.request.deletePensions.DeletePensionsRequestData
+import v1.deletePensions.model.request.DeletePensionsRequestData
 
 trait MockDeletePensionsValidatorFactory extends MockFactory {
 
