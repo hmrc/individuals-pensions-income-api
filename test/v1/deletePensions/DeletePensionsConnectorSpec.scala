@@ -39,7 +39,7 @@ class DeletePensionsConnectorSpec extends ConnectorSpec {
         taxYear = taxYear
       )
 
-    protected val connector: DeletePensionsIncomeConnector = new DeletePensionsIncomeConnector(
+    protected val connector: DeletePensionsConnector = new DeletePensionsConnector(
       http = mockHttpClient,
       appConfig = mockAppConfig
     )

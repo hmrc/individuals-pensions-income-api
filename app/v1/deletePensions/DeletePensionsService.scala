@@ -26,7 +26,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class DeletePensionsService @Inject() (connector: DeletePensionsIncomeConnector) extends BaseService {
+class DeletePensionsService @Inject() (connector: DeletePensionsConnector) extends BaseService {
 
   def deletePensions(request: DeletePensionsRequestData)(implicit ctx: RequestContext, ec: ExecutionContext): Future[ServiceOutcome[Unit]] = {
 

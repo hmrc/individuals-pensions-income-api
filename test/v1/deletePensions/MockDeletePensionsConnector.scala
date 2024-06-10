@@ -24,9 +24,9 @@ import v1.deletePensions.model.request.DeletePensionsRequestData
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockDeletePensionsIncomeConnector extends MockFactory {
+trait MockDeletePensionsConnector extends MockFactory {
 
-  val mockDeletePensionsIncomeConnector: DeletePensionsIncomeConnector = mock[DeletePensionsIncomeConnector]
+  val mockDeletePensionsIncomeConnector: DeletePensionsConnector = mock[DeletePensionsConnector]
 
   object MockDeletePensionsIncomeConnector {
 

@@ -27,7 +27,7 @@ import scala.concurrent.Future
 
 class DeletePensionsServiceSpec extends ServiceSpec {
 
-  trait Test extends MockDeletePensionsIncomeConnector {
+  trait Test extends MockDeletePensionsConnector {
     implicit val logContext: EndpointLogContext = EndpointLogContext("c", "ep")
 
     private val nino    = Nino("AA112233A")
