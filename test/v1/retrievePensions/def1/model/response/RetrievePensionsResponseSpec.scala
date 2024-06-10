@@ -19,7 +19,7 @@ package v1.retrievePensions.def1.model.response
 import play.api.libs.json.{JsError, Json}
 import shared.UnitSpec
 import shared.models.domain.Timestamp
-import v1.retrievePensions.model.response.RetrievePensionsResponse
+import v1.retrievePensions.model.response.Def1_RetrievePensionsResponse
 
 class RetrievePensionsResponseSpec extends UnitSpec {
 
@@ -161,7 +161,7 @@ class RetrievePensionsResponseSpec extends UnitSpec {
     )
   )
 
-  private val responseModel = RetrievePensionsResponse(
+  private val responseModel = Def1_RetrievePensionsResponse(
     submittedOn = Timestamp("2020-07-06T09:37:17.000Z"),
     foreignPensions = Some(foreignPensionsItemModel),
     overseasPensionContributions = Some(overseasPensionContributionsItemModel)
@@ -170,7 +170,7 @@ class RetrievePensionsResponseSpec extends UnitSpec {
   "RetrievePensionsResponse" when {
     "read from valid JSON" should {
       "produce the expected RetrievePensionsResponse object" in {
-        desJson.as[RetrievePensionsResponse] shouldBe responseModel
+        desJson.as[Def1_RetrievePensionsResponse] shouldBe responseModel
       }
     }
 
@@ -190,7 +190,7 @@ class RetrievePensionsResponseSpec extends UnitSpec {
           """.stripMargin
         )
 
-        invalidJson.validate[RetrievePensionsResponse] shouldBe a[JsError]
+        invalidJson.validate[Def1_RetrievePensionsResponse] shouldBe a[JsError]
       }
     }
 
