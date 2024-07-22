@@ -14,27 +14,16 @@
  * limitations under the License.
  */
 
-package shared.utils
+package shared.hateoas
 
-import play.api.libs.json._
-import shared.UnitSpec
+import play.api.libs.json.{Json, Writes}
 
-class JsonUtilsSpec extends UnitSpec with JsonUtils {
+case class Link(
+    href: String,
+    method: Method,
+    rel: String
+)
 
-  "mapEmptySeqToNone" must {
-    val reads = __.readNullable[Seq[String]].mapEmptySeqToNone
-
-    "map non-empty sequence to Some(non-empty sequence)" in {
-      JsArray(Seq(JsString("value0"), JsString("value1"))).as(reads) shouldBe Some(Seq("value0", "value1"))
-    }
-
-    "map empty sequence to None" in {
-      JsArray.empty.as(reads) shouldBe None
-    }
-
-    "map None to None" in {
-      JsNull.as(reads) shouldBe None
-    }
-  }
-
+object Link {
+  implicit val writes: Writes[Link] = Json.writes[Link]
 }
