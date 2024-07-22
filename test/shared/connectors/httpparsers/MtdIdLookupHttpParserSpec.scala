@@ -72,7 +72,7 @@ class MtdIdLookupHttpParserSpec extends UnitSpec {
         val response                   = HttpResponse(FORBIDDEN, "")
         val result: MtdIdLookupOutcome = mtdIdLookupHttpReads.read(method, url, response)
 
-        result shouldBe Left(NinoFormatError)
+        result shouldBe Left(ClientNotAuthorisedError)
       }
     }
 
