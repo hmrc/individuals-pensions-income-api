@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package v1.deletePensions
+package routing
 
-import shared.controllers.validators.Validator
-import v1.deletePensions.def1.Def1_DeletePensionsValidator
-import v1.deletePensions.model.request.DeletePensionsRequestData
+import play.api.routing.Router
+import shared.config.AppConfig
+import shared.routing.{Version, Version1, VersionRoutingMap}
 
-class DeletePensionsValidatorFactory {
+import javax.inject.{Inject, Singleton}
 
-  def validator(nino: String, taxYear: String): Validator[DeletePensionsRequestData] =
-    new Def1_DeletePensionsValidator(nino, taxYear)
+@Singleton case class PensionsIncomeRoutingMap @Inject()(
+    appConfig: AppConfig,
+    defaultRouter: Router,
+    v1Router: v1.Routes
+) extends VersionRoutingMap {
+
+  /** Routes corresponding to available versions.
+    */
+  val map: Map[Version, Router] = Map(
+    Version1 -> v1Router
+  )
 
 }

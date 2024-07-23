@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package v1.deletePensions
+package v1
 
-import shared.controllers.validators.Validator
-import v1.deletePensions.def1.Def1_DeletePensionsValidator
-import v1.deletePensions.model.request.DeletePensionsRequestData
+import play.api.libs.json.Reads
 
-class DeletePensionsValidatorFactory {
+trait JsonUtils {
 
-  def validator(nino: String, taxYear: String): Validator[DeletePensionsRequestData] =
-    new Def1_DeletePensionsValidator(nino, taxYear)
+  /** Extension methods for reads of a optional sequence
+    */
+  implicit class OptSeqReadsOps[A](reads: Reads[Option[Seq[A]]]) {
+
+    /** Returns a Reads that maps the sequence to itself unless it is empty
+      */
+    def mapEmptySeqToNone: Reads[Option[Seq[A]]] =
+      reads.map {
+        case Some(Nil) => None
+        case other     => other
+      }
+
+  }
 
 }
