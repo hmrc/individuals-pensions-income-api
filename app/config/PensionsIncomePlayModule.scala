@@ -17,7 +17,7 @@
 package config
 
 import com.google.inject.AbstractModule
-import definition.PensionsIncomeDfinitionFactory
+import definition.PensionsIncomeDefinitionFactory
 import routing.PensionsIncomeRoutingMap
 import shared.definition.ApiDefinitionFactory
 import shared.routing.VersionRoutingMap
@@ -25,7 +25,7 @@ import shared.routing.VersionRoutingMap
 class PensionsIncomePlayModule extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[ApiDefinitionFactory]).to(classOf[PensionsIncomeDfinitionFactory]).asEagerSingleton()
+    bind(classOf[ApiDefinitionFactory]).to(classOf[PensionsIncomeDefinitionFactory]).asEagerSingleton()
     bind(classOf[VersionRoutingMap]).to(classOf[PensionsIncomeRoutingMap]).asEagerSingleton()
   }
 

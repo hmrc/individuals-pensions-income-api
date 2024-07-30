@@ -23,14 +23,14 @@ import shared.routing.Version1
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class PensionsIncomeDfinitionFactory @Inject()(protected val appConfig: AppConfig) extends ApiDefinitionFactory {
+class PensionsIncomeDefinitionFactory @Inject()(protected val appConfig: AppConfig) extends ApiDefinitionFactory {
 
   lazy val definition: Definition =
     Definition(
       scopes = scopes,
       api = APIDefinition(
-        name = "Business Source Adjustable Summary (MTD)",
-        description = "An API for providing business source adjustable summary data",
+        name = "Individuals Pensions Income (MTD)",
+        description = "An API for providing individual pensions income data",
         context = appConfig.apiGatewayContext,
         categories = List(mtdCategory),
         versions = List(
