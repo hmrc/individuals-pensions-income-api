@@ -139,7 +139,7 @@ class RetrievePensionsControllerSpec
     )
 
     MockedAppConfig.featureSwitchConfig.anyNumberOfTimes() returns Configuration(
-      "supporting-agents-access-control.enabled" -> true
+      "supporting-agents-access-control.enabled" -> false
     )
 
     MockedAppConfig.endpointAllowsSupportingAgents(controller.endpointName).anyNumberOfTimes() returns false
