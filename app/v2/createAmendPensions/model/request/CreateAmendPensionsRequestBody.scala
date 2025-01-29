@@ -18,8 +18,7 @@ package v2.createAmendPensions.model.request
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsPath, OWrites, Reads}
-import shared.utils.JsonWritesUtil
-import v2.JsonUtils
+import shared.utils.{JsonUtils, JsonWritesUtil}
 import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 
 sealed trait CreateAmendPensionsRequestBody

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2
+package shared.utils
 
 import play.api.libs.json.Reads
 
