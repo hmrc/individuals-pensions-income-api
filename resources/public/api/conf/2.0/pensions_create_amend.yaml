@@ -63,7 +63,7 @@ responses:
           RULE_COUNTRY_CODE:
             $ref: './common/errors.yaml#/components/examples/ruleCountryCode'
           RULE_OUTSIDE_AMENDMENT_WINDOW:
-            $ref: './common/errors.yaml#/components/RuleOutsideAmendmentWindowError'
+            $ref: './common/errors.yaml#/components/examples/RuleOutsideAmendmentWindowError'
           FORMAT_VALUE:
             $ref: './common/errors.yaml#/components/examples/formatValue'
           FORMAT_CUSTOMER_REF:
