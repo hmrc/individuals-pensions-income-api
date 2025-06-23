@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import sbt.*
 import uk.gov.hmrc.DefaultBuildSettings
 
@@ -47,9 +48,7 @@ lazy val it = project
   .enablePlugins(PlayScala)
   .dependsOn(microservice % "test->test")
   .settings(DefaultBuildSettings.itSettings() ++ ScalafmtPlugin.scalafmtConfigSettings)
-  .settings(
-    Test / fork := true,
-    Test / javaOptions += "-Dlogger.resource=logback-test.xml")
+  .settings(Test / fork := true, Test / javaOptions += "-Dlogger.resource=logback-test.xml")
   .settings(libraryDependencies ++= AppDependencies.itDependencies)
   .settings(
     scalacOptions ++= Seq("-Xfatal-warnings")
