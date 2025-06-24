@@ -328,7 +328,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
     import scala.language.reflectiveCalls
 
     val connector = new BaseDownstreamConnector with MockAppConfig with MockHttpClient {
-      val http: HttpClientV2 = mockHttpClient
+      val http: HttpClientV2   = mockHttpClient
       val appConfig: AppConfig = mockAppConfig
 
       def checkPassThroughHeaders(downstreamConfig: DownstreamConfig, additionalHeaders: Seq[(String, String)]): Seq[(String, String)] =
@@ -401,7 +401,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
   private class DesLocalTest extends MockHttpClient with MockAppConfig {
 
     val connector: BaseDownstreamConnector = new BaseDownstreamConnector {
-      val http: HttpClientV2 = mockHttpClient
+      val http: HttpClientV2   = mockHttpClient
       val appConfig: AppConfig = mockAppConfig
     }
 
@@ -417,7 +417,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
   private class IfsLocalTest extends MockHttpClient with MockAppConfig {
 
     val connector: BaseDownstreamConnector = new BaseDownstreamConnector {
-      val http: HttpClientV2 = mockHttpClient
+      val http: HttpClientV2   = mockHttpClient
       val appConfig: AppConfig = mockAppConfig
     }
 
@@ -433,7 +433,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
   private class TysIfsLocalTest extends MockHttpClient with MockAppConfig {
 
     val connector: BaseDownstreamConnector = new BaseDownstreamConnector {
-      val http: HttpClientV2 = mockHttpClient
+      val http: HttpClientV2   = mockHttpClient
       val appConfig: AppConfig = mockAppConfig
     }
 

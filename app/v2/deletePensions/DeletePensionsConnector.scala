@@ -28,7 +28,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class DeletePensionsConnector @Inject()(val http: HttpClientV2, val appConfig: AppConfig) extends BaseDownstreamConnector {
+class DeletePensionsConnector @Inject() (val http: HttpClientV2, val appConfig: AppConfig) extends BaseDownstreamConnector {
 
   def deletePensionsIncome(request: DeletePensionsRequestData)(implicit
       hc: HeaderCarrier,
