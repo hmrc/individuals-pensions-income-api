@@ -31,7 +31,7 @@ class Def1_RetrievePensionsValidator(nino: String, taxYear: String) extends Vali
     (
       ResolveNino(nino),
       resolveTaxYear(taxYear)
-    ).mapN(Def1_RetrievePensionsRequestData)
+    ).mapN(Def1_RetrievePensionsRequestData.apply)
 
 }
 

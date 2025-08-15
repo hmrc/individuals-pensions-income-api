@@ -42,7 +42,7 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
       "a valid request is supplied" in {
 
         val result = validator(validNino, validTaxYear).validateAndWrapResult()
-        result shouldBe Right(Def1_RetrievePensionsRequestData(parsedNino, parsedTaxYear))
+        result.shouldBe(Right(Def1_RetrievePensionsRequestData(parsedNino, parsedTaxYear)))
       }
     }
 
@@ -50,9 +50,9 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
       "an invalid nino is supplied" in {
 
         val result = validator("A12344A", validTaxYear).validateAndWrapResult()
-        result shouldBe Left(
+        result.shouldBe(Left(
           ErrorWrapper(correlationId, NinoFormatError)
-        )
+        ))
       }
     }
 
@@ -60,9 +60,9 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
       "an invalid tax year is supplied" in {
 
         val result = validator(validNino, "201718").validateAndWrapResult()
-        result shouldBe Left(
+        result.shouldBe(Left(
           ErrorWrapper(correlationId, TaxYearFormatError)
-        )
+        ))
       }
     }
 
@@ -70,9 +70,9 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
       "an invalid tax year is supplied" in {
 
         val result = validator(validNino, "2016-17").validateAndWrapResult()
-        result shouldBe Left(
+        result.shouldBe(Left(
           ErrorWrapper(correlationId, RuleTaxYearNotSupportedError)
-        )
+        ))
       }
     }
 
@@ -80,9 +80,9 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
       "an invalid tax year range is supplied" in {
 
         val result = validator(validNino, "2017-19").validateAndWrapResult()
-        result shouldBe Left(
+        result.shouldBe(Left(
           ErrorWrapper(correlationId, RuleTaxYearRangeInvalidError)
-        )
+        ))
       }
     }
 
@@ -91,13 +91,13 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig {
 
         val result = validator("not-a-nino", "2017-19").validateAndWrapResult()
 
-        result shouldBe Left(
+        result.shouldBe(Left(
           ErrorWrapper(
             correlationId,
             BadRequestError,
             Some(List(NinoFormatError, RuleTaxYearRangeInvalidError))
           )
-        )
+        ))
       }
     }
   }

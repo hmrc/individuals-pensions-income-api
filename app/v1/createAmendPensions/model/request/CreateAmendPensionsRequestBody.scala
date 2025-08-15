@@ -42,11 +42,11 @@ object Def1_CreateAmendPensionsRequestBody extends JsonUtils {
   implicit val reads: Reads[Def1_CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPensions").readNullable[Seq[CreateAmendForeignPensionsItem]].mapEmptySeqToNone and
       (JsPath \ "overseasPensionContributions").readNullable[Seq[CreateAmendOverseasPensionContributions]].mapEmptySeqToNone
-  )(Def1_CreateAmendPensionsRequestBody.apply _)
+  )(Def1_CreateAmendPensionsRequestBody.apply)
 
   implicit val writes: OWrites[Def1_CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPension").writeNullable[Seq[CreateAmendForeignPensionsItem]] and
       (JsPath \ "overseasPensionContribution").writeNullable[Seq[CreateAmendOverseasPensionContributions]]
-  )(unlift(Def1_CreateAmendPensionsRequestBody.unapply))
+  )(w => Tuple.fromProductTyped(w))
 
 }

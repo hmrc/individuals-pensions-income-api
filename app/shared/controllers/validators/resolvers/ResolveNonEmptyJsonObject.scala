@@ -42,12 +42,12 @@ object ResolveNonEmptyJsonObject extends ResolverSupport with Logging {
       case NoEmptyPaths => None
     }
   }
-
-  def resolver[A: Reads: EmptinessChecker]: Resolver[JsValue, A] = ResolveJsonObject.resolver thenValidate nonEmptyValidator
+  
+  def resolver[A: Reads : EmptinessChecker]: Resolver[JsValue, A] = ResolveJsonObject.resolver.thenValidate(nonEmptyValidator)
 
   /** Gets a resolver that also validates for unexpected JSON fields
-    */
+   */
   def strictResolver[A: Reads: EmptinessChecker: SchemaStructureSource]: Resolver[JsValue, A] =
-    ResolveJsonObject.strictResolver thenValidate nonEmptyValidator
+    ResolveJsonObject.strictResolver.thenValidate(nonEmptyValidator)
 
 }
