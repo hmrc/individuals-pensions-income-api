@@ -18,6 +18,7 @@ package shared.controllers.validators.resolvers
 
 import cats.data.Validated.{Invalid, Valid}
 import play.api.libs.json.*
+import shared.controllers.validators.resolvers.UnexpectedJsonFieldsValidator.SchemaStructureSource
 import shared.models.errors.RuleIncorrectOrEmptyBodyError
 import shared.models.utils.JsonErrorValidators
 import shared.utils.EmptinessChecker
@@ -40,10 +41,10 @@ class ResolveNonEmptyJsonObjectSpec extends UnitSpec with ResolverSupport with J
 
   case class Foo(bar: Bar, bars: Option[Seq[Bar]] = None, baz: Option[Baz] = None, qux: Option[Qux] = None)
 
-  implicit val barFormat: Reads[Bar] = Json.reads
-  implicit val bazFormat: Reads[Baz] = Json.reads
-  implicit val quxFormat: Reads[Qux] = Json.reads
-  implicit val fooReads: Reads[Foo]  = Json.reads
+  given Reads[Bar] = Json.reads[Bar]
+  given Reads[Baz] = Json.reads[Baz]
+  given Reads[Qux] = Json.reads[Qux]
+  given Reads[Foo] = Json.reads[Foo]
 
   private def jsonObjectResolver(resolver: Resolver[JsValue, Foo]): Unit = {
     "return the parsed object" when {

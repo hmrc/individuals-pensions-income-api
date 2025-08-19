@@ -228,9 +228,10 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
   }
 
   "passThroughHeaders()" when {
-    import scala.language.reflectiveCalls
+    import scala.reflect.Selectable.reflectiveSelectable
 
-    val connector = new BaseDownstreamConnector with MockAppConfig with MockHttpClient {
+    val connector: { def checkPassThroughHeaders(downstreamConfig: DownstreamConfig, additionalHeaders: Seq[(String, String)]): Seq[(String, String)] } =
+      new BaseDownstreamConnector with MockAppConfig with MockHttpClient {
       val http: HttpClientV2   = mockHttpClient
       val appConfig: AppConfig = mockAppConfig
 
