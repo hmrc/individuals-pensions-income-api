@@ -18,7 +18,7 @@ package v1.deletePensions
 
 import shared.controllers.EndpointLogContext
 import shared.models.domain.{Nino, TaxYear}
-import shared.models.errors._
+import shared.models.errors.*
 import shared.models.outcomes.ResponseWrapper
 import shared.services.ServiceSpec
 import v1.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}

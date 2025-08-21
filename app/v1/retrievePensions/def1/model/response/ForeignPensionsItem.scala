@@ -16,7 +16,7 @@
 
 package v1.retrievePensions.def1.model.response
 
-import play.api.libs.functional.syntax._
+import play.api.libs.functional.syntax.*
 import play.api.libs.json.{JsPath, Json, OWrites, Reads}
 
 case class ForeignPensionsItem(countryCode: String,

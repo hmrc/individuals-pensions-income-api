@@ -18,14 +18,14 @@ package v2.createAmendPensions.def1
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import play.api.http.HeaderNames.ACCEPT
-import play.api.http.Status._
+import play.api.http.Status.*
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
-import shared.models.errors._
+import shared.models.errors.*
 import shared.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
 import support.IntegrationBaseSpec
-import v2.models._
+import v2.models.*
 import play.api.libs.ws.DefaultBodyReadables.readableAsString
 import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 

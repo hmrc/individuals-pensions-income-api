@@ -17,7 +17,7 @@
 package shared.models.domain
 
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import shared.utils.enums.Enums
 
 enum Source {
