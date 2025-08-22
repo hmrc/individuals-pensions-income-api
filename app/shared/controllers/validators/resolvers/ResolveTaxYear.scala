@@ -90,9 +90,7 @@ case class ResolveTaxYearMinMax(minMax: (TaxYear, TaxYear), error: MtdError = Ru
   private val (minimumTaxYear, maximumTaxYear) = minMax
 
   val resolver: Resolver[String, TaxYear] =
-    ResolveTaxYear.resolver.thenValidate(
-      satisfiesMin(minimumTaxYear, error)).thenValidate(
-      satisfiesMax(maximumTaxYear, error))
+    ResolveTaxYear.resolver.thenValidate(satisfiesMin(minimumTaxYear, error)).thenValidate(satisfiesMax(maximumTaxYear, error))
 
   def apply(value: String): Validated[Seq[MtdError], TaxYear] = resolver(value)
 

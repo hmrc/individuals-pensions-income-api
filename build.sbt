@@ -18,6 +18,7 @@ import uk.gov.hmrc.DefaultBuildSettings
 
 ThisBuild / scalaVersion := "3.5.2"
 ThisBuild / majorVersion := 0
+ThisBuild / scalafmtOnCompile := true
 ThisBuild / scalacOptions ++= Seq(
   "-Werror",
   "-Wconf:msg=Flag.*repeatedly:s"
@@ -30,8 +31,6 @@ lazy val microservice = Project(appName, file("."))
   .disablePlugins(JUnitXmlReportPlugin) // Required to prevent https://github.com/scalatest/scalatest/issues/1427
   .settings(
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
-    retrieveManaged                 := true,
-    update / evictionWarningOptions := EvictionWarningOptions.default.withWarnScalaVersionEviction(warnScalaVersionEviction = false),
     scalacOptions ++= Seq(
       "-feature",
       "-Wconf:src=routes/.*:s"

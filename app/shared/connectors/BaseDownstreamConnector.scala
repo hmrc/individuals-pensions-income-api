@@ -143,8 +143,8 @@ trait BaseDownstreamConnector extends Logging {
 
   private def configFor[Resp](uri: DownstreamUri[Resp]) =
     uri match {
-      case DesUri(_)                => appConfig.desDownstreamConfig
-      case IfsUri(_)                => appConfig.ifsDownstreamConfig
+      case DesUri(_) => appConfig.desDownstreamConfig
+      case IfsUri(_) => appConfig.ifsDownstreamConfig
     }
 
   private def intentHeader(maybeIntent: String): (String, String) = "intent" -> maybeIntent

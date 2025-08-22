@@ -51,7 +51,7 @@ class TaxYearSpec extends UnitSpec {
       "return the tax year in the 'Tax Year Specific API' format" in {
         taxYear.asTysDownstream shouldBe "23-24"
       }
-      
+
       "return the expected string representation" in {
         taxYear.toString shouldBe "TaxYear(2024)"
       }
@@ -69,7 +69,7 @@ class TaxYearSpec extends UnitSpec {
 
     "constructed from an ending year" should {
       "return the tax year that ends in that year and started the previous year" in {
-        val year: Int = 2024
+        val year: Int        = 2024
         val taxYear: TaxYear = TaxYear.ending(year)
         taxYear.year shouldBe 2024
         taxYear.startYear shouldBe 2023

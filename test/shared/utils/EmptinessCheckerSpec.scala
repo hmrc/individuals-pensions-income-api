@@ -114,4 +114,5 @@ class EmptinessCheckerSpec extends UnitSpec {
       EmptinessChecker[Seq[String]].findEmptyPaths(Vector("test", "test")) shouldBe NoEmptyPaths
     }
   }
+
 }

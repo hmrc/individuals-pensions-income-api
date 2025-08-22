@@ -32,7 +32,7 @@ trait MockHateoasFactory extends TestSuite with MockFactory {
         .wrap(_: A, _: D)(_: HateoasLinksFactory[A, D]))
         .expects(a, data, *)
     }
-    
+
   }
 
 }

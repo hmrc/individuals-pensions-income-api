@@ -26,4 +26,3 @@ enum Status {
 object Status {
   given Format[Status] = Enums.format(values)
 }
-

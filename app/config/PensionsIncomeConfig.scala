@@ -22,20 +22,11 @@ import javax.inject.{Inject, Singleton}
 
 /** Put API-specific config here...
   */
-//@Singleton
-//class PensionsIncomeConfig @Inject() (config: ServicesConfig, configuration: Configuration) {
-//
-//  def featureSwitchConfig: Configuration = configuration.getOptional[Configuration](s"feature-switch").getOrElse(Configuration.empty)
-//
-//  def featureSwitches: FeatureSwitches = PensionsIncomeFeatureSwitches(featureSwitchConfig)
-//
-//}
 
 @Singleton
 class PensionsIncomeConfig @Inject() (
-                                       //config: ServicesConfig,
-                                       configuration: Configuration
-                                     )(implicit appConfig: AppConfig) {
+    configuration: Configuration
+)(implicit appConfig: AppConfig) {
 
   def featureSwitchConfig: Configuration =
     configuration.getOptional[Configuration]("feature-switch").getOrElse(Configuration.empty)
@@ -43,5 +34,5 @@ class PensionsIncomeConfig @Inject() (
   def featureSwitches: FeatureSwitches = {
     PensionsIncomeFeatureSwitches()
   }
-}
 
+}
