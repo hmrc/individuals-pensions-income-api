@@ -253,7 +253,7 @@ class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
                 "/overseasPensionContributions/1/dblTaxationRelief"
               ))
           ),
-          CountryCodeRuleError.copy(
+          RuleCountryCodeError.copy(
             paths = Some(
               List(
                 "/foreignPensions/0/countryCode",
@@ -384,7 +384,7 @@ class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
             |        },
             |        {
             |            "code": "RULE_COUNTRY_CODE",
-            |            "message": "The country code is not a valid ISO 3166-1 alpha-3 country code",
+            |            "message": "The country code is not a permitted ISO 3166-1 alpha-3 country code",
             |            "paths": [
             |                "/foreignPensions/1/countryCode",
             |                "/overseasPensionContributions/0/dblTaxationCountryCode"
@@ -750,7 +750,7 @@ class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
           ))
       )
 
-      val countryCodeRuleError: MtdError = CountryCodeRuleError.copy(
+      val countryCodeRuleError: MtdError = RuleCountryCodeError.copy(
         paths = Some(
           Seq(
             "/overseasPensionContributions/0/dblTaxationCountryCode",
