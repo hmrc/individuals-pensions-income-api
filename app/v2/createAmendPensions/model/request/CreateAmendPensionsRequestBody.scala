@@ -36,7 +36,6 @@ case class Def1_CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[Creat
     extends CreateAmendPensionsRequestBody
 
 object Def1_CreateAmendPensionsRequestBody {
-  val empty: Def1_CreateAmendPensionsRequestBody = Def1_CreateAmendPensionsRequestBody(None, None)
 
   implicit val reads: Reads[Def1_CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPensions").readNullable[Seq[CreateAmendForeignPensionsItem]] and
