@@ -116,7 +116,6 @@ class ErrorHandlerSpec extends UnitSpec with GuiceOneAppPerSuite {
     "return 401 with error body" when {
       "AuthorisationException thrown" in new Test {
         val result: Future[Result] = handler.onServerError(requestHeader, new InsufficientEnrolments("test") with NoStackTrace)
-        // TODO This really should be FORBIDDEN (403), but would need to be changed across all the APIs at once (if at all).
         status(result) shouldBe UNAUTHORIZED
 
         contentAsJson(result) shouldBe ClientOrAgentNotAuthorisedError.asJson
@@ -179,19 +178,19 @@ class ErrorHandlerSpec extends UnitSpec with GuiceOneAppPerSuite {
     }
   }
 
-  def anyVersionHeader: (String, String) = ACCEPT -> s"application/vnd.hmrc.1.0+json"
+  def anyVersionHeader: (String, String) = ACCEPT -> "application/vnd.hmrc.1.0+json"
 
-  class Test {
+  private trait Test {
     val method = "some-method"
 
     val requestHeader: FakeRequest[AnyContent] = FakeRequest().withHeaders(anyVersionHeader)
 
-    val auditConnector: AuditConnector = mock[AuditConnector]
-    val httpAuditEvent: HttpAuditEvent = mock[HttpAuditEvent]
+    private val auditConnector: AuditConnector = mock[AuditConnector]
+    private val httpAuditEvent: HttpAuditEvent = mock[HttpAuditEvent]
 
-    val eventTags: Map[String, String] = Map("transactionName" -> "event.transactionName")
+    private val eventTags: Map[String, String] = Map("transactionName" -> "event.transactionName")
 
-    val dataEvent: DataEvent = DataEvent(
+    private val dataEvent: DataEvent = DataEvent(
       auditSource = "auditSource",
       auditType = "event.auditType",
       eventId = "",
@@ -210,7 +209,7 @@ class ErrorHandlerSpec extends UnitSpec with GuiceOneAppPerSuite {
       .expects(*, *, *)
       .returns(Future.successful(Success))
 
-    val configuration: Configuration = Configuration(
+    private val configuration: Configuration = Configuration(
       "appName"                                         -> "myApp",
       "bootstrap.errorHandler.warnOnly.statusCodes"     -> List(OK),
       "bootstrap.errorHandler.suppress4xxErrorMessages" -> false,
