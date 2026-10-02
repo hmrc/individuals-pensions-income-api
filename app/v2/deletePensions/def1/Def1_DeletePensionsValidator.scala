@@ -17,7 +17,7 @@
 package v2.deletePensions.def1
 
 import api.controllers.validators.Validator
-import api.controllers.validators.resolvers.{ResolveNino, ResolveTaxYearMinimum}
+import api.controllers.validators.resolvers.{ResolveDetailedTaxYear, ResolveNino}
 import api.models.domain.TaxYear
 import api.models.errors.MtdError
 import cats.data.Validated
@@ -29,7 +29,7 @@ class Def1_DeletePensionsValidator(nino: String, taxYear: String)(implicit pensi
     extends Validator[DeletePensionsRequestData] {
 
   private lazy val minTaxYear     = pensionsIncomeConfig.minimumPermittedTaxYear()
-  private lazy val resolveTaxYear = ResolveTaxYearMinimum(TaxYear.ending(minTaxYear))
+  private lazy val resolveTaxYear = ResolveDetailedTaxYear(minimumTaxYear = TaxYear.ending(minTaxYear))
 
   def validate: Validated[Seq[MtdError], DeletePensionsRequestData] = (
     ResolveNino(nino),

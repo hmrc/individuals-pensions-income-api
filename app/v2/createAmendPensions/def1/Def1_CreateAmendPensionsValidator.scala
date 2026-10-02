@@ -17,7 +17,7 @@
 package v2.createAmendPensions.def1
 
 import api.controllers.validators.Validator
-import api.controllers.validators.resolvers.{ResolveNino, ResolveNonEmptyJsonObject, ResolveTaxYearMinimum}
+import api.controllers.validators.resolvers.{ResolveDetailedTaxYear, ResolveNino, ResolveNonEmptyJsonObject}
 import api.models.domain.TaxYear
 import api.models.errors.MtdError
 import cats.data.Validated
@@ -32,7 +32,7 @@ class Def1_CreateAmendPensionsValidator(nino: String, taxYear: String, body: JsV
     extends Validator[CreateAmendPensionsRequestData] {
 
   private lazy val minTaxYear     = pensionsIncomeConfig.minimumPermittedTaxYear()
-  private lazy val resolveTaxYear = ResolveTaxYearMinimum(TaxYear.fromDownstreamInt(minTaxYear))
+  private lazy val resolveTaxYear = ResolveDetailedTaxYear(minimumTaxYear = TaxYear.fromDownstreamInt(minTaxYear))
 
   def validate: Validated[Seq[MtdError], CreateAmendPensionsRequestData] =
     (
