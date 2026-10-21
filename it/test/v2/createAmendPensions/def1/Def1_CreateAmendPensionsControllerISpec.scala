@@ -27,7 +27,6 @@ import play.api.libs.ws.JsonBodyWritables.writeableOf_JsValue
 import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
 import support.IntegrationBaseSpec
-import v2.models.*
 
 class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
 

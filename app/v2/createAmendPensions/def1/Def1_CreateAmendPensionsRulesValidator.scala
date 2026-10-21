@@ -18,12 +18,11 @@ package v2.createAmendPensions.def1
 
 import api.controllers.validators.RulesValidator
 import api.controllers.validators.resolvers.{ResolveParsedCountryCode, ResolveParsedNumber, ResolveStringPattern}
-import api.models.errors.MtdError
+import api.models.errors.*
 import cats.data.Validated
 import cats.implicits.toFoldableOps
 import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 import v2.createAmendPensions.model.request.Def1_CreateAmendPensionsRequestData
-import v2.models.*
 
 object Def1_CreateAmendPensionsRulesValidator extends RulesValidator[Def1_CreateAmendPensionsRequestData] {
 

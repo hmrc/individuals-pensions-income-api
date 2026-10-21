@@ -27,7 +27,6 @@ import play.api.libs.json.{JsObject, JsValue, Json}
 import v2.createAmendPensions.CreateAmendPensionsValidatorFactory
 import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 import v2.createAmendPensions.model.request.{CreateAmendPensionsRequestData, Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
-import v2.models.*
 
 class Def1_CreateAmendPensionsValidatorSpec extends UnitSpec with JsonErrorValidators with MockPensionsIncomeConfig with MockAppConfig {
 

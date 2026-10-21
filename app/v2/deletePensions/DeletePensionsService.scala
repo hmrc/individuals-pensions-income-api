@@ -21,7 +21,6 @@ import api.models.errors.*
 import api.services.{BaseService, ServiceOutcome}
 import cats.implicits.*
 import v2.deletePensions.model.request.DeletePensionsRequestData
-import v2.models.RuleOutsideAmendmentWindowError
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
