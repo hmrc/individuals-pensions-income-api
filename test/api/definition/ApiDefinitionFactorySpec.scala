@@ -17,7 +17,7 @@
 package api.definition
 
 import api.config.Deprecation.NotDeprecated
-import api.config.{AppConfig, MockAppConfig}
+import api.config.MockAppConfig
 import api.definition.APIStatus.{ALPHA, BETA}
 import api.mocks.MockHttpClient
 import api.routing.*
@@ -26,7 +26,7 @@ import cats.implicits.catsSyntaxValidatedId
 
 import scala.language.reflectiveCalls
 
-class ApiDefinitionFactorySpec extends UnitSpec {
+class ApiDefinitionFactorySpec extends UnitSpec with MockAppConfig {
 
   "buildAPIStatus" when {
     "the 'apiStatus' parameter is present and valid" should {
@@ -70,13 +70,46 @@ class ApiDefinitionFactorySpec extends UnitSpec {
 
   }
 
+  "the access level is set" when {
+    "the controlled access flag is enabled" should {
+      "return CONTROLLED" in {
+
+        MockedAppConfig.apiGatewayContext returns "individuals/self-assessment/adjustable-summary"
+        MockedAppConfig.endpointsEnabled(Version2)
+        MockedAppConfig.apiStatus(Version2) returns "BETA"
+        MockedAppConfig.deprecationFor(Version2).returns(NotDeprecated.valid).anyNumberOfTimes()
+
+        MockedAppConfig.controlledAccessEnabled returns true
+
+        val definition: Definition = new ApiDefinitionFactory(mockAppConfig).definition
+
+        definition.api.versions.head.access shouldBe APIAccessType.CONTROLLED
+      }
+    }
+
+    "the controlled access flag is disabled" should {
+      "return PUBLIC" in {
+
+        MockedAppConfig.apiGatewayContext returns "individuals/self-assessment/adjustable-summary"
+        MockedAppConfig.endpointsEnabled(Version2)
+        MockedAppConfig.apiStatus(Version2) returns "BETA"
+        MockedAppConfig.deprecationFor(Version2).returns(NotDeprecated.valid).anyNumberOfTimes()
+
+        MockedAppConfig.controlledAccessEnabled returns false
+
+        val definition: Definition = new ApiDefinitionFactory(mockAppConfig).definition
+
+        definition.api.versions.head.access shouldBe APIAccessType.PUBLIC
+      }
+    }
+  }
+
   class Test extends MockHttpClient with MockAppConfig {
     MockedAppConfig.apiGatewayContext returns "individuals/self-assessment/adjustable-summary"
 
-    protected val apiDefinitionFactory: ApiDefinitionFactory = new ApiDefinitionFactory {
-      protected val appConfig: AppConfig = mockAppConfig
+    protected val apiDefinitionFactory: ApiDefinitionFactory = new ApiDefinitionFactory(mockAppConfig) {
 
-      val definition: Definition = Definition(
+      override lazy val definition: Definition = Definition(
         APIDefinition(
           "test API definition",
           "description",

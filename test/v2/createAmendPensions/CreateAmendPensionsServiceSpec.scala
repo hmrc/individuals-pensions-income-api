@@ -23,7 +23,6 @@ import api.models.outcomes.ResponseWrapper
 import api.services.ServiceSpec
 import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 import v2.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
-import v2.models.RuleOutsideAmendmentWindowError
 
 import scala.concurrent.Future
 

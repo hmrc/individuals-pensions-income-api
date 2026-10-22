@@ -21,7 +21,6 @@ import api.models.errors.*
 import api.services.{BaseService, ServiceOutcome}
 import cats.implicits.*
 import v2.createAmendPensions.model.request.CreateAmendPensionsRequestData
-import v2.models.RuleOutsideAmendmentWindowError
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}

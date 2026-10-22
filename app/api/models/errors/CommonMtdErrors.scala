@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@ package api.models.errors
 
 import play.api.http.Status.*
 
-// MtdError types that are common across MTD APIs.
-
 // Format Errors
 object NinoFormatError extends MtdError("FORMAT_NINO", "The NINO format is invalid", BAD_REQUEST)
 
@@ -33,6 +31,18 @@ object ValueFormatError extends MtdError("FORMAT_VALUE", "The value must be betw
     ValueFormatError.copy(paths = Some(Seq(path)), message = s"The value must be between $min and $max")
 
 }
+
+object CustomerRefFormatError extends MtdError("FORMAT_CUSTOMER_REF", "The provided customer reference is invalid", BAD_REQUEST)
+
+object QOPSRefFormatError extends MtdError("FORMAT_QOPS_REF", "The provided QOPS reference number is invalid", BAD_REQUEST)
+
+object DoubleTaxationArticleFormatError
+    extends MtdError("FORMAT_DOUBLE_TAXATION_ARTICLE", "The provided double taxation article is invalid", BAD_REQUEST)
+
+object DoubleTaxationTreatyFormatError
+    extends MtdError("FORMAT_DOUBLE_TAXATION_TREATY", "The provided double taxation treaty is invalid", BAD_REQUEST)
+
+object SF74RefFormatError extends MtdError("FORMAT_SF74_REF", "The provided SF74 reference is invalid", BAD_REQUEST)
 
 //Standard Errors
 object NotFoundError extends MtdError("MATCHING_RESOURCE_NOT_FOUND", "Matching resource not found", NOT_FOUND)
@@ -48,9 +58,6 @@ object BVRError extends MtdError("BUSINESS_ERROR", "Business validation error", 
 object InvalidHttpMethodError extends MtdError("INVALID_HTTP_METHOD", "Invalid HTTP method", METHOD_NOT_ALLOWED)
 
 object InvalidBodyTypeError extends MtdError("INVALID_BODY_TYPE", "Expecting text/json or application/json body", UNSUPPORTED_MEDIA_TYPE)
-
-object InvalidTaxYearParameterError
-    extends MtdError(code = "INVALID_TAX_YEAR_PARAMETER", message = "A tax year before 2023-24 was supplied", BAD_REQUEST)
 
 //Authentication/Authorisation errors
 
@@ -82,6 +89,8 @@ object RuleTaxYearRangeInvalidError extends MtdError("RULE_TAX_YEAR_RANGE_INVALI
 object RuleTaxYearNotEndedError extends MtdError("RULE_TAX_YEAR_NOT_ENDED", "The specified tax year has not yet ended", BAD_REQUEST)
 
 object RuleCountryCodeError extends MtdError("RULE_COUNTRY_CODE", "The country code is not a permitted ISO 3166-1 alpha-3 country code", BAD_REQUEST)
+
+object RuleOutsideAmendmentWindowError extends MtdError("RULE_OUTSIDE_AMENDMENT_WINDOW", "You are outside the amendment window", BAD_REQUEST)
 
 //Stub Errors
 object RuleIncorrectGovTestScenarioError
