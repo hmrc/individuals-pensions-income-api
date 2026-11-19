@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1
+package v2.retrievePensions
 
 import api.config.MockAppConfig
 import api.controllers.validators.Validator
@@ -22,10 +22,9 @@ import api.models.domain.{Nino, TaxYear}
 import api.models.errors.*
 import api.utils.UnitSpec
 import config.{MockPensionsIncomeConfig, PensionsIncomeConfig}
-import v2.retrievePensions.RetrievePensionsValidatorFactory
-import v2.retrievePensions.model.request.{Def1_RetrievePensionsRequestData, RetrievePensionsRequestData}
+import v2.retrievePensions.model.request.RetrievePensionsRequestData
 
-class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
+class RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
 
   class Test extends MockPensionsIncomeConfig {
     implicit val correlationId: String = "1234"
@@ -56,7 +55,7 @@ class Def1_RetrievePensionsValidatorSpec extends UnitSpec with MockAppConfig wit
         val result: Either[ErrorWrapper, RetrievePensionsRequestData] =
           validator(validNino, validTaxYear).validateAndWrapResult()
 
-        result.shouldBe(Right(Def1_RetrievePensionsRequestData(parsedNino, parsedTaxYear)))
+        result.shouldBe(Right(RetrievePensionsRequestData(parsedNino, parsedTaxYear)))
       }
     }
 

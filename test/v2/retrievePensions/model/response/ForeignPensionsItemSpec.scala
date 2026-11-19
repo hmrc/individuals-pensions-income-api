@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1.model.response
+package v2.retrievePensions.model.response
 
 import api.utils.UnitSpec
 import play.api.libs.json.{JsError, JsObject, Json}

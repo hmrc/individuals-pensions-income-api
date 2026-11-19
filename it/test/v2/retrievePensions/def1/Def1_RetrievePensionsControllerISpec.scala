@@ -24,7 +24,7 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
 import support.IntegrationBaseSpec
-import v2.retrievePensions.def1.model.RetrievePensionsControllerFixture
+import v2.retrievePensions.model.RetrievePensionsControllerFixture
 
 class Def1_RetrievePensionsControllerISpec extends IntegrationBaseSpec {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1
+package v2.createAmendPensions
 
 import api.controllers.validators.Validator
 import api.controllers.validators.resolvers.{ResolveDetailedTaxYear, ResolveNino, ResolveNonEmptyJsonObject}
@@ -24,11 +24,11 @@ import cats.data.Validated
 import cats.implicits.*
 import config.PensionsIncomeConfig
 import play.api.libs.json.JsValue
-import v2.createAmendPensions.def1.Def1_CreateAmendPensionsRulesValidator.validateBusinessRules
-import v2.createAmendPensions.def1.Def1_CreateAmendPensionsValidator.resolveJson
-import v2.createAmendPensions.model.request.{CreateAmendPensionsRequestData, Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
+import v2.createAmendPensions.CreateAmendPensionsRulesValidator.validateBusinessRules
+import v2.createAmendPensions.CreateAmendPensionsValidator.resolveJson
+import v2.createAmendPensions.model.request.{CreateAmendPensionsRequestBody, CreateAmendPensionsRequestData}
 
-class Def1_CreateAmendPensionsValidator(nino: String, taxYear: String, body: JsValue)(implicit pensionsIncomeConfig: PensionsIncomeConfig)
+class CreateAmendPensionsValidator(nino: String, taxYear: String, body: JsValue)(implicit pensionsIncomeConfig: PensionsIncomeConfig)
     extends Validator[CreateAmendPensionsRequestData] {
 
   private lazy val minTaxYear     = pensionsIncomeConfig.minimumPermittedTaxYear()
@@ -39,10 +39,10 @@ class Def1_CreateAmendPensionsValidator(nino: String, taxYear: String, body: JsV
       ResolveNino(nino),
       resolveTaxYear(taxYear),
       resolveJson(body)
-    ).mapN(Def1_CreateAmendPensionsRequestData.apply) andThen validateBusinessRules
+    ).mapN(CreateAmendPensionsRequestData.apply) andThen validateBusinessRules
 
 }
 
-object Def1_CreateAmendPensionsValidator {
-  private val resolveJson = new ResolveNonEmptyJsonObject[Def1_CreateAmendPensionsRequestBody]()
+object CreateAmendPensionsValidator {
+  private val resolveJson = new ResolveNonEmptyJsonObject[CreateAmendPensionsRequestBody]()
 }

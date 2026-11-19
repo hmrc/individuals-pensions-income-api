@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1.model.response
+package v2.retrievePensions.model.response
 
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.{JsPath, Json, OWrites, Reads}

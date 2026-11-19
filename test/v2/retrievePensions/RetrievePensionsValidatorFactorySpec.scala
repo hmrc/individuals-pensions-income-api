@@ -20,7 +20,6 @@ import api.config.MockAppConfig
 import api.controllers.validators.Validator
 import api.utils.UnitSpec
 import config.MockPensionsIncomeConfig
-import v2.retrievePensions.def1.Def1_RetrievePensionsValidator
 import v2.retrievePensions.model.request.RetrievePensionsRequestData
 
 class RetrievePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
@@ -37,7 +36,7 @@ class RetrievePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig w
         val result: Validator[RetrievePensionsRequestData] =
           validatorFactory.validator(validNino, validTaxYear)
 
-        result shouldBe a[Def1_RetrievePensionsValidator]
+        result shouldBe a[RetrievePensionsValidator]
       }
     }
 

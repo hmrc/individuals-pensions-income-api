@@ -17,15 +17,5 @@
 package v2.deletePensions.model.request
 
 import api.models.domain.{Nino, TaxYear}
-import v2.deletePensions.DeletePensionsSchema
 
-sealed trait DeletePensionsRequestData {
-  def nino: Nino
-  def taxYear: TaxYear
-
-  val schema: DeletePensionsSchema
-}
-
-case class Def1_DeletePensionsRequestData(nino: Nino, taxYear: TaxYear) extends DeletePensionsRequestData {
-  override val schema: DeletePensionsSchema = DeletePensionsSchema.Def1
-}
+case class DeletePensionsRequestData(nino: Nino, taxYear: TaxYear)

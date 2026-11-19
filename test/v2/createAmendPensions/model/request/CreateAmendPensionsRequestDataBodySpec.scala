@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1.model.response
+package v2.createAmendPensions.model.request
 
-import api.models.domain.Timestamp
 import api.utils.UnitSpec
-import play.api.libs.json.{JsError, Json}
-import v2.retrievePensions.model.response.Def1_RetrievePensionsResponse
+import play.api.libs.json.{JsError, JsObject, Json}
 
-class RetrievePensionsResponseSpec extends UnitSpec {
+class CreateAmendPensionsRequestDataBodySpec extends UnitSpec {
 
   private val mtdJson = Json.parse(
     """
       |{
-      |   "submittedOn": "2020-07-06T09:37:17.000Z",
       |   "foreignPensions": [
       |      {
       |         "countryCode": "DEU",
@@ -74,7 +71,6 @@ class RetrievePensionsResponseSpec extends UnitSpec {
   private val downstreamJson = Json.parse(
     """
       |{
-      |   "submittedOn": "2020-07-06T09:37:17Z",
       |   "foreignPension": [
       |      {
       |         "countryCode": "DEU",
@@ -119,8 +115,8 @@ class RetrievePensionsResponseSpec extends UnitSpec {
     """.stripMargin
   )
 
-  private val foreignPensionsItemModel = Seq(
-    ForeignPensionsItem(
+  private val foreignPensionsModel = Seq(
+    CreateAmendForeignPensionsItem(
       countryCode = "DEU",
       amountBeforeTax = Some(100.23),
       taxTakenOff = Some(1.23),
@@ -128,7 +124,7 @@ class RetrievePensionsResponseSpec extends UnitSpec {
       foreignTaxCreditRelief = Some(false),
       taxableAmount = 3.23
     ),
-    ForeignPensionsItem(
+    CreateAmendForeignPensionsItem(
       countryCode = "FRA",
       amountBeforeTax = Some(200.25),
       taxTakenOff = Some(1.27),
@@ -138,8 +134,8 @@ class RetrievePensionsResponseSpec extends UnitSpec {
     )
   )
 
-  private val overseasPensionContributionsItemModel = Seq(
-    OverseasPensionContributions(
+  private val overseasPensionContributionsModel = Seq(
+    CreateAmendOverseasPensionContributions(
       customerReference = Some("PENSIONINCOME245"),
       exemptEmployersPensionContribs = 200.23,
       migrantMemReliefQopsRefNo = Some("QOPS000000"),
@@ -149,7 +145,7 @@ class RetrievePensionsResponseSpec extends UnitSpec {
       dblTaxationTreaty = Some("Treaty"),
       sf74reference = Some("SF74-123456")
     ),
-    OverseasPensionContributions(
+    CreateAmendOverseasPensionContributions(
       customerReference = Some("PENSIONINCOME275"),
       exemptEmployersPensionContribs = 270.50,
       migrantMemReliefQopsRefNo = Some("QOPS000245"),
@@ -161,42 +157,66 @@ class RetrievePensionsResponseSpec extends UnitSpec {
     )
   )
 
-  private val responseModel = Def1_RetrievePensionsResponse(
-    submittedOn = Timestamp("2020-07-06T09:37:17.000Z"),
-    foreignPensions = Some(foreignPensionsItemModel),
-    overseasPensionContributions = Some(overseasPensionContributionsItemModel)
+  private val requestBodyModel = CreateAmendPensionsRequestBody(
+    Some(foreignPensionsModel),
+    Some(overseasPensionContributionsModel)
   )
 
-  "RetrievePensionsResponse" when {
+  "AmendPensionsRequestBody" when {
     "read from valid JSON" should {
-      "produce the expected RetrievePensionsResponse object" in {
-        downstreamJson.as[Def1_RetrievePensionsResponse] shouldBe responseModel
+      "produce the expected AmendPensionsRequestBody object" in {
+        mtdJson.as[CreateAmendPensionsRequestBody] shouldBe requestBodyModel
+      }
+    }
+
+    "read from empty JSON" should {
+      "produce the expected AmendPensionsRequestBody object" in {
+        val emptyJson = JsObject.empty
+        emptyJson.as[CreateAmendPensionsRequestBody] shouldBe CreateAmendPensionsRequestBody(None, None)
+      }
+    }
+
+    "read from valid JSON with 'foreignPensions' and 'overseasPensionContributions' arrays" should {
+      "produce the expected AmendPensionsRequestBody object" in {
+        val json = Json.parse(
+          """
+            |{
+            |   "foreignPensions": [],
+            |   "overseasPensionContributions": []
+            |}
+          """.stripMargin
+        )
+
+        json.as[CreateAmendPensionsRequestBody] shouldBe CreateAmendPensionsRequestBody(Some(List()), Some(List()))
       }
     }
 
     "read from invalid JSON" should {
       "produce a JsError" in {
-        val invalidJson = Json.parse(
+        val json = Json.parse(
           """
             |{
             |   "foreignPensions": [
             |      {
             |         "countryCode": "DEU",
+            |         "amountBeforeTax": true,
+            |         "taxTakenOff": 1.23,
+            |         "specialWithholdingTax": 2.23,
             |         "foreignTaxCreditRelief": false,
-            |         "taxableAmount": true
+            |         "taxableAmount": 3.23
             |      }
             |   ]
             |}
           """.stripMargin
         )
 
-        invalidJson.validate[Def1_RetrievePensionsResponse] shouldBe a[JsError]
+        json.validate[CreateAmendPensionsRequestBody] shouldBe a[JsError]
       }
     }
 
     "written to JSON" should {
       "produce the expected JsObject" in {
-        Json.toJson(responseModel) shouldBe mtdJson
+        Json.toJson(requestBodyModel) shouldBe downstreamJson
       }
     }
   }

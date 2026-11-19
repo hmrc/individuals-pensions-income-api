@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1
+package v2.deletePensions
 
 import api.controllers.validators.Validator
 import api.controllers.validators.resolvers.{ResolveDetailedTaxYear, ResolveNino}
@@ -23,18 +23,17 @@ import api.models.errors.MtdError
 import cats.data.Validated
 import cats.implicits.*
 import config.PensionsIncomeConfig
-import v2.retrievePensions.model.request.{Def1_RetrievePensionsRequestData, RetrievePensionsRequestData}
+import v2.deletePensions.model.request.DeletePensionsRequestData
 
-class Def1_RetrievePensionsValidator(nino: String, taxYear: String)(implicit pensionsIncomeConfig: PensionsIncomeConfig)
-    extends Validator[RetrievePensionsRequestData] {
+class DeletePensionsValidator(nino: String, taxYear: String)(implicit pensionsIncomeConfig: PensionsIncomeConfig)
+    extends Validator[DeletePensionsRequestData] {
 
   private lazy val minTaxYear     = pensionsIncomeConfig.minimumPermittedTaxYear()
   private lazy val resolveTaxYear = ResolveDetailedTaxYear(minimumTaxYear = TaxYear.ending(minTaxYear))
 
-  def validate: Validated[Seq[MtdError], RetrievePensionsRequestData] =
-    (
-      ResolveNino(nino),
-      resolveTaxYear(taxYear)
-    ).mapN(Def1_RetrievePensionsRequestData.apply)
+  def validate: Validated[Seq[MtdError], DeletePensionsRequestData] = (
+    ResolveNino(nino),
+    resolveTaxYear(taxYear)
+  ).mapN(DeletePensionsRequestData.apply)
 
 }

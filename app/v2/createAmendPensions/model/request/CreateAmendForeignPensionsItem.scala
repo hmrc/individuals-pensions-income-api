@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1.model.request
+package v2.createAmendPensions.model.request
 
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.{JsPath, Json, OWrites, Reads}

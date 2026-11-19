@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1.model
+package v2.retrievePensions.model
 
 import play.api.libs.json.{JsValue, Json}
 

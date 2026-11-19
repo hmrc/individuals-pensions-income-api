@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1.model.request
+package v2.createAmendPensions.model.request
 
 import api.utils.UnitSpec
 import play.api.libs.json.{JsError, JsObject, Json}

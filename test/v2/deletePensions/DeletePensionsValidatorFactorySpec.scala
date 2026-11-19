@@ -19,7 +19,6 @@ package v2.deletePensions
 import api.config.MockAppConfig
 import api.utils.UnitSpec
 import config.MockPensionsIncomeConfig
-import v2.deletePensions.def1.Def1_DeletePensionsValidator
 
 class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
   private val validNino    = "AA123456A"
@@ -31,16 +30,16 @@ class DeletePensionsValidatorFactorySpec extends UnitSpec with MockAppConfig wit
   val validatorFactory = new DeletePensionsValidatorFactory
 
   "validator" should {
-    "return the Def1 validator" when {
+    "return the validator" when {
 
       "given any valid request" in {
         val result = validatorFactory.validator(validNino, validTaxYear)
-        result shouldBe a[Def1_DeletePensionsValidator]
+        result shouldBe a[DeletePensionsValidator]
       }
 
       "given any invalid request" in {
         val result = validatorFactory.validator(invalidNino, invalidTaxYear)
-        result shouldBe a[Def1_DeletePensionsValidator]
+        result shouldBe a[DeletePensionsValidator]
       }
     }
 

@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1
+package v2.createAmendPensions
 
 import api.controllers.validators.RulesValidator
 import api.controllers.validators.resolvers.{ResolveParsedCountryCode, ResolveParsedNumber, ResolveStringPattern}
 import api.models.errors.*
 import cats.data.Validated
 import cats.implicits.toFoldableOps
-import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
-import v2.createAmendPensions.model.request.Def1_CreateAmendPensionsRequestData
+import v2.createAmendPensions.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions, CreateAmendPensionsRequestData}
 
-object Def1_CreateAmendPensionsRulesValidator extends RulesValidator[Def1_CreateAmendPensionsRequestData] {
+object CreateAmendPensionsRulesValidator extends RulesValidator[CreateAmendPensionsRequestData] {
 
   private val resolveParsedNumber = ResolveParsedNumber()
   private val stringRegex         = "^[0-9a-zA-Z{À-˿’}\\- _&`():.'^]{1,90}$".r
 
-  def validateBusinessRules(parsed: Def1_CreateAmendPensionsRequestData): Validated[Seq[MtdError], Def1_CreateAmendPensionsRequestData] = {
+  def validateBusinessRules(parsed: CreateAmendPensionsRequestData): Validated[Seq[MtdError], CreateAmendPensionsRequestData] = {
     import parsed.body.*
     val validatedForeignPensions = foreignPensions match {
       case Some(foreignPensionsItems) =>

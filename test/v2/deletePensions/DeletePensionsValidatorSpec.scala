@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.deletePensions.def1
+package v2.deletePensions
 
 import api.config.MockAppConfig
 import api.controllers.validators.Validator
@@ -22,10 +22,9 @@ import api.models.domain.{Nino, TaxYear}
 import api.models.errors.*
 import api.utils.UnitSpec
 import config.{MockPensionsIncomeConfig, PensionsIncomeConfig}
-import v2.deletePensions.DeletePensionsValidatorFactory
-import v2.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
+import v2.deletePensions.model.request.DeletePensionsRequestData
 
-class Def1_DeletePensionsValidatorSpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
+class DeletePensionsValidatorSpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig {
 
   class Test extends MockPensionsIncomeConfig {
     implicit val correlationId: String = "1234"
@@ -56,7 +55,7 @@ class Def1_DeletePensionsValidatorSpec extends UnitSpec with MockAppConfig with 
         val result: Either[ErrorWrapper, DeletePensionsRequestData] =
           validator(validNino, validTaxYear).validateAndWrapResult()
 
-        result shouldBe Right(Def1_DeletePensionsRequestData(parsedNino, parsedTaxYear))
+        result shouldBe Right(DeletePensionsRequestData(parsedNino, parsedTaxYear))
       }
     }
 

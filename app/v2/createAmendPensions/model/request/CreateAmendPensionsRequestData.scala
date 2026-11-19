@@ -17,18 +17,5 @@
 package v2.createAmendPensions.model.request
 
 import api.models.domain.{Nino, TaxYear}
-import v2.createAmendPensions.CreateAmendPensionsSchema
 
-sealed trait CreateAmendPensionsRequestData {
-  def nino: Nino
-  def taxYear: TaxYear
-  def body: CreateAmendPensionsRequestBody
-
-  val schema: CreateAmendPensionsSchema
-}
-
-case class Def1_CreateAmendPensionsRequestData(nino: Nino, taxYear: TaxYear, body: Def1_CreateAmendPensionsRequestBody)
-    extends CreateAmendPensionsRequestData {
-
-  override val schema: CreateAmendPensionsSchema = CreateAmendPensionsSchema.Def1
-}
+case class CreateAmendPensionsRequestData(nino: Nino, taxYear: TaxYear, body: CreateAmendPensionsRequestBody)

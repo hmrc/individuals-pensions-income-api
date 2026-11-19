@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1
+package v2.createAmendPensions
 
 import api.config.MockAppConfig
 import api.controllers.validators.Validator
@@ -24,11 +24,9 @@ import api.models.utils.JsonErrorValidators
 import api.utils.UnitSpec
 import config.{MockPensionsIncomeConfig, PensionsIncomeConfig}
 import play.api.libs.json.{JsObject, JsValue, Json}
-import v2.createAmendPensions.CreateAmendPensionsValidatorFactory
-import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
-import v2.createAmendPensions.model.request.{CreateAmendPensionsRequestData, Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
+import v2.createAmendPensions.model.request.*
 
-class Def1_CreateAmendPensionsValidatorSpec extends UnitSpec with JsonErrorValidators with MockPensionsIncomeConfig with MockAppConfig {
+class CreateAmendPensionsValidatorSpec extends UnitSpec with JsonErrorValidators with MockPensionsIncomeConfig with MockAppConfig {
 
   private implicit val correlationId: String = "a1e8057e-fbbc-47a8-a8b4-78d9f015c253"
   private val validNino                      = "AA123456A"
@@ -375,7 +373,7 @@ class Def1_CreateAmendPensionsValidatorSpec extends UnitSpec with JsonErrorValid
     )
   )
 
-  private val parsedBody = Def1_CreateAmendPensionsRequestBody(
+  private val parsedBody = CreateAmendPensionsRequestBody(
     Some(parsedCreateAmendForeignPensionsItem),
     Some(parsedCreateAmendOverseasPensionContributions)
   )
@@ -403,7 +401,7 @@ class Def1_CreateAmendPensionsValidatorSpec extends UnitSpec with JsonErrorValid
         val result: Either[ErrorWrapper, CreateAmendPensionsRequestData] =
           validator(validNino, validTaxYear, validRequestBodyJson).validateAndWrapResult()
 
-        result shouldBe Right(Def1_CreateAmendPensionsRequestData(parsedNino, parsedTaxYear, parsedBody))
+        result shouldBe Right(CreateAmendPensionsRequestData(parsedNino, parsedTaxYear, parsedBody))
       }
     }
 

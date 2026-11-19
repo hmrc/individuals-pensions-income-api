@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1.model.response
+package v2.createAmendPensions.model.request
 
 import api.utils.UnitSpec
 import play.api.libs.json.{JsError, JsObject, Json}
 
-class OverseasPensionContributionsSpec extends UnitSpec {
+class CreateAmendOverseasPensionContributionsSpec extends UnitSpec {
 
   private val mtdJson = Json.parse(
     """
@@ -51,7 +51,7 @@ class OverseasPensionContributionsSpec extends UnitSpec {
     """.stripMargin
   )
 
-  private val model = OverseasPensionContributions(
+  private val model = CreateAmendOverseasPensionContributions(
     customerReference = Some("PENSIONINCOME245"),
     exemptEmployersPensionContribs = 200.23,
     migrantMemReliefQopsRefNo = Some("QOPS000000"),
@@ -62,24 +62,23 @@ class OverseasPensionContributionsSpec extends UnitSpec {
     sf74reference = Some("SF74-123456")
   )
 
-  "OverseasPensionContributionsItem" when {
+  "AmendOverseasPensionContributionsItem" when {
     "read from valid JSON" should {
-      "produce the expected OverseasPensionContributionsItem object" in {
-        downstreamJson.as[OverseasPensionContributions] shouldBe model
+      "produce the expected AmendOverseasPensionContributionsItem object" in {
+        mtdJson.as[CreateAmendOverseasPensionContributions] shouldBe model
       }
     }
 
     "read from empty JSON" should {
       "produce a JsError" in {
         val invalidJson = JsObject.empty
-
-        invalidJson.validate[OverseasPensionContributions] shouldBe a[JsError]
+        invalidJson.validate[CreateAmendOverseasPensionContributions] shouldBe a[JsError]
       }
     }
 
     "written to JSON" should {
       "produce the expected JsObject" in {
-        Json.toJson(model) shouldBe mtdJson
+        Json.toJson(model) shouldBe downstreamJson
       }
     }
   }
