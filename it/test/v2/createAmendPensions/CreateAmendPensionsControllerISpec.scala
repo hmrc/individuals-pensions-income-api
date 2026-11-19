@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.createAmendPensions.def1
+package v2.createAmendPensions
 
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
@@ -28,7 +28,7 @@ import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
 import support.IntegrationBaseSpec
 
-class Def1_CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
+class CreateAmendPensionsControllerISpec extends IntegrationBaseSpec {
 
   private trait Test {
 

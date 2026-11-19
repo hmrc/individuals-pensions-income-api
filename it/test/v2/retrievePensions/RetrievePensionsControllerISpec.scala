@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrievePensions.def1
+package v2.retrievePensions
 
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
@@ -26,7 +26,7 @@ import play.api.test.Helpers.AUTHORIZATION
 import support.IntegrationBaseSpec
 import v2.retrievePensions.model.RetrievePensionsControllerFixture
 
-class Def1_RetrievePensionsControllerISpec extends IntegrationBaseSpec {
+class RetrievePensionsControllerISpec extends IntegrationBaseSpec {
 
   private trait Test {
 

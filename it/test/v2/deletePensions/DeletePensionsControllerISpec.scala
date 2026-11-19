@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.deletePensions.`def`
+package v2.deletePensions
 
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
@@ -26,7 +26,7 @@ import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
 import support.IntegrationBaseSpec
 
-class Def1_DeletePensionsControllerISpec extends IntegrationBaseSpec {
+class DeletePensionsControllerISpec extends IntegrationBaseSpec {
 
   private trait Test {
 
