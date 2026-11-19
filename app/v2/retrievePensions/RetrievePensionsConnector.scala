@@ -37,12 +37,11 @@ class RetrievePensionsConnector @Inject() (val http: HttpClientV2, val appConfig
       correlationId: String): Future[DownstreamOutcome[RetrievePensionsResponse]] = {
 
     import request.*
-    import schema.*
 
     val downstreamUri = if (taxYear.useTaxYearSpecificApi) {
-      IfsUri[DownstreamResp](s"income-tax/income/pensions/${taxYear.asTysDownstream}/${nino.value}")
+      IfsUri[RetrievePensionsResponse](s"income-tax/income/pensions/${taxYear.asTysDownstream}/${nino.value}")
     } else {
-      IfsUri[DownstreamResp](s"income-tax/income/pensions/${nino.value}/${taxYear.asMtd}")
+      IfsUri[RetrievePensionsResponse](s"income-tax/income/pensions/${nino.value}/${taxYear.asMtd}")
     }
 
     get(downstreamUri)

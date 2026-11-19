@@ -16,33 +16,20 @@
 
 package v2.createAmendPensions.model.request
 
-import api.utils.JsonWritesUtil
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.{JsPath, OWrites, Reads}
-import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
 
-sealed trait CreateAmendPensionsRequestBody
+case class CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[CreateAmendForeignPensionsItem]],
+                                          overseasPensionContributions: Option[Seq[CreateAmendOverseasPensionContributions]])
 
-object CreateAmendPensionsRequestBody extends JsonWritesUtil {
+object CreateAmendPensionsRequestBody {
 
-  implicit val writes: OWrites[CreateAmendPensionsRequestBody] = writesFrom { case a: Def1_CreateAmendPensionsRequestBody =>
-    implicitly[OWrites[Def1_CreateAmendPensionsRequestBody]].writes(a)
-  }
-
-}
-
-case class Def1_CreateAmendPensionsRequestBody(foreignPensions: Option[Seq[CreateAmendForeignPensionsItem]],
-                                               overseasPensionContributions: Option[Seq[CreateAmendOverseasPensionContributions]])
-    extends CreateAmendPensionsRequestBody
-
-object Def1_CreateAmendPensionsRequestBody {
-
-  implicit val reads: Reads[Def1_CreateAmendPensionsRequestBody] = (
+  implicit val reads: Reads[CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPensions").readNullable[Seq[CreateAmendForeignPensionsItem]] and
       (JsPath \ "overseasPensionContributions").readNullable[Seq[CreateAmendOverseasPensionContributions]]
-  )(Def1_CreateAmendPensionsRequestBody.apply)
+  )(CreateAmendPensionsRequestBody.apply)
 
-  implicit val writes: OWrites[Def1_CreateAmendPensionsRequestBody] = (
+  implicit val writes: OWrites[CreateAmendPensionsRequestBody] = (
     (JsPath \ "foreignPension").writeNullable[Seq[CreateAmendForeignPensionsItem]] and
       (JsPath \ "overseasPensionContribution").writeNullable[Seq[CreateAmendOverseasPensionContributions]]
   )(w => Tuple.fromProductTyped(w))

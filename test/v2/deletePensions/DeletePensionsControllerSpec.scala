@@ -26,7 +26,7 @@ import config.MockPensionsIncomeConfig
 import play.api.Configuration
 import play.api.libs.json.JsValue
 import play.api.mvc.Result
-import v2.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
+import v2.deletePensions.model.request.DeletePensionsRequestData
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -41,7 +41,7 @@ class DeletePensionsControllerSpec
 
   private val taxYear = "2021-22"
 
-  private val requestData: DeletePensionsRequestData = Def1_DeletePensionsRequestData(
+  private val requestData: DeletePensionsRequestData = DeletePensionsRequestData(
     nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear)
   )

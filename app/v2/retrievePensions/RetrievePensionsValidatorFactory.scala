@@ -18,7 +18,6 @@ package v2.retrievePensions
 
 import api.controllers.validators.Validator
 import config.PensionsIncomeConfig
-import v2.retrievePensions.def1.Def1_RetrievePensionsValidator
 import v2.retrievePensions.model.request.RetrievePensionsRequestData
 
 import javax.inject.Inject
@@ -26,6 +25,6 @@ import javax.inject.Inject
 class RetrievePensionsValidatorFactory @Inject() (implicit pensionsIncomeConfig: PensionsIncomeConfig) {
 
   def validator(nino: String, taxYear: String): Validator[RetrievePensionsRequestData] =
-    new Def1_RetrievePensionsValidator(nino, taxYear)
+    new RetrievePensionsValidator(nino, taxYear)
 
 }

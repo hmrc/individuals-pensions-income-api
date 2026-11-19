@@ -21,7 +21,7 @@ import api.models.domain.{Nino, TaxYear}
 import api.models.errors.{InternalError, MtdError, NinoFormatError}
 import api.models.outcomes.ResponseWrapper
 import uk.gov.hmrc.http.StringContextOps
-import v2.deletePensions.model.request.{Def1_DeletePensionsRequestData, DeletePensionsRequestData}
+import v2.deletePensions.model.request.DeletePensionsRequestData
 
 import scala.concurrent.Future
 
@@ -35,7 +35,7 @@ class DeletePensionsConnectorSpec extends ConnectorSpec {
     val nino: String = "AA111111A"
 
     protected val request: DeletePensionsRequestData =
-      Def1_DeletePensionsRequestData(
+      DeletePensionsRequestData(
         nino = Nino(nino),
         taxYear = taxYear
       )

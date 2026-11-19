@@ -22,7 +22,6 @@ import api.models.utils.JsonErrorValidators
 import api.utils.UnitSpec
 import config.MockPensionsIncomeConfig
 import play.api.libs.json.Json
-import v2.createAmendPensions.def1.Def1_CreateAmendPensionsValidator
 import v2.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
 class CreateAmendPensionsValidatorFactorySpec extends UnitSpec with MockAppConfig with MockPensionsIncomeConfig with JsonErrorValidators {
@@ -80,11 +79,11 @@ class CreateAmendPensionsValidatorFactorySpec extends UnitSpec with MockAppConfi
 
   "validator()" when {
     "given any tax year" should {
-      "return the Validator for schema definition 1" in {
+      "return the CreateAmendPensionsValidator" in {
         val requestBody = validRequestBody
         val result: Validator[CreateAmendPensionsRequestData] =
           validatorFactory.validator(validNino, validTaxYear, requestBody)
-        result shouldBe a[Def1_CreateAmendPensionsValidator]
+        result shouldBe a[CreateAmendPensionsValidator]
       }
     }
   }

@@ -23,10 +23,9 @@ import api.models.errors.*
 import api.models.outcomes.ResponseWrapper
 import play.api.Configuration
 import play.api.mvc.Result
-import v2.retrievePensions.def1.model.RetrievePensionsControllerFixture
-import v2.retrievePensions.def1.model.response.{ForeignPensionsItem, OverseasPensionContributions}
-import v2.retrievePensions.model.request.Def1_RetrievePensionsRequestData
-import v2.retrievePensions.model.response.Def1_RetrievePensionsResponse
+import v2.retrievePensions.model.RetrievePensionsControllerFixture
+import v2.retrievePensions.model.request.RetrievePensionsRequestData
+import v2.retrievePensions.model.response.{ForeignPensionsItem, OverseasPensionContributions, RetrievePensionsResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -40,7 +39,7 @@ class RetrievePensionsControllerSpec
 
   private val taxYear = "2019-20"
 
-  private val requestData: Def1_RetrievePensionsRequestData = Def1_RetrievePensionsRequestData(
+  private val requestData: RetrievePensionsRequestData = RetrievePensionsRequestData(
     nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear)
   )
@@ -87,7 +86,7 @@ class RetrievePensionsControllerSpec
     )
   )
 
-  private val retrievePensionsResponse = Def1_RetrievePensionsResponse(
+  private val retrievePensionsResponse = RetrievePensionsResponse(
     submittedOn = Timestamp("2020-07-06T09:37:17.000Z"),
     foreignPensions = Some(foreignPensionsItem),
     overseasPensionContributions = Some(overseasPensionContributionsItem)

@@ -18,7 +18,6 @@ package v2.deletePensions
 
 import api.controllers.validators.Validator
 import config.PensionsIncomeConfig
-import v2.deletePensions.def1.Def1_DeletePensionsValidator
 import v2.deletePensions.model.request.DeletePensionsRequestData
 
 import javax.inject.Inject
@@ -26,6 +25,6 @@ import javax.inject.Inject
 class DeletePensionsValidatorFactory @Inject() (implicit pensionsIncomeConfig: PensionsIncomeConfig) {
 
   def validator(nino: String, taxYear: String): Validator[DeletePensionsRequestData] =
-    new Def1_DeletePensionsValidator(nino, taxYear)
+    new DeletePensionsValidator(nino, taxYear)
 
 }

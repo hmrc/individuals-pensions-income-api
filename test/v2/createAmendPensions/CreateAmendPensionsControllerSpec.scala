@@ -25,8 +25,12 @@ import api.models.outcomes.ResponseWrapper
 import play.api.Configuration
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
-import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
-import v2.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
+import v2.createAmendPensions.model.request.{
+  CreateAmendForeignPensionsItem,
+  CreateAmendOverseasPensionContributions,
+  CreateAmendPensionsRequestBody,
+  CreateAmendPensionsRequestData
+}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -129,12 +133,12 @@ class CreateAmendPensionsControllerSpec
     )
   )
 
-  private val createAmendPensionsRequestBody: Def1_CreateAmendPensionsRequestBody = Def1_CreateAmendPensionsRequestBody(
+  private val createAmendPensionsRequestBody: CreateAmendPensionsRequestBody = CreateAmendPensionsRequestBody(
     foreignPensions = Some(foreignPensionsItem),
     overseasPensionContributions = Some(overseasPensionContributionsItem)
   )
 
-  private val requestData: Def1_CreateAmendPensionsRequestData = Def1_CreateAmendPensionsRequestData(
+  private val requestData: CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
     nino = Nino(validNino),
     taxYear = TaxYear.fromMtd(taxYear),
     body = createAmendPensionsRequestBody

@@ -20,8 +20,8 @@ import api.connectors.ConnectorSpec
 import api.models.domain.{Nino, TaxYear, Timestamp}
 import api.models.outcomes.ResponseWrapper
 import uk.gov.hmrc.http.StringContextOps
-import v2.retrievePensions.model.request.Def1_RetrievePensionsRequestData
-import v2.retrievePensions.model.response.Def1_RetrievePensionsResponse
+import v2.retrievePensions.model.request.RetrievePensionsRequestData
+import v2.retrievePensions.model.response.RetrievePensionsResponse
 
 import scala.concurrent.Future
 
@@ -29,7 +29,7 @@ class RetrievePensionsConnectorSpec extends ConnectorSpec {
 
   val nino: String = "AA111111A"
 
-  val retrievePensionsResponse: Def1_RetrievePensionsResponse = Def1_RetrievePensionsResponse(
+  val retrievePensionsResponse: RetrievePensionsResponse = RetrievePensionsResponse(
     submittedOn = Timestamp("2020-07-06T09:37:17.000Z"),
     foreignPensions = None,
     overseasPensionContributions = None
@@ -45,7 +45,7 @@ class RetrievePensionsConnectorSpec extends ConnectorSpec {
       appConfig = mockAppConfig
     )
 
-    lazy val request: Def1_RetrievePensionsRequestData = Def1_RetrievePensionsRequestData(Nino(nino), TaxYear.fromMtd(taxYear))
+    lazy val request: RetrievePensionsRequestData = RetrievePensionsRequestData(Nino(nino), TaxYear.fromMtd(taxYear))
   }
 
   "RetrievePensionsConnector" when {
@@ -54,7 +54,7 @@ class RetrievePensionsConnectorSpec extends ConnectorSpec {
 
         def taxYear: String = "2021-22"
 
-        val outcome: Right[Nothing, ResponseWrapper[Def1_RetrievePensionsResponse]] = Right(ResponseWrapper(correlationId, retrievePensionsResponse))
+        val outcome: Right[Nothing, ResponseWrapper[RetrievePensionsResponse]] = Right(ResponseWrapper(correlationId, retrievePensionsResponse))
 
         willGet(url = url"$baseUrl/income-tax/income/pensions/$nino/2021-22")
           .returns(Future.successful(outcome))
@@ -66,7 +66,7 @@ class RetrievePensionsConnectorSpec extends ConnectorSpec {
 
         def taxYear: String = "2023-24"
 
-        val outcome: Right[Nothing, ResponseWrapper[Def1_RetrievePensionsResponse]] = Right(ResponseWrapper(correlationId, retrievePensionsResponse))
+        val outcome: Right[Nothing, ResponseWrapper[RetrievePensionsResponse]] = Right(ResponseWrapper(correlationId, retrievePensionsResponse))
 
         willGet(url = url"$baseUrl/income-tax/income/pensions/23-24/$nino")
           .returns(Future.successful(outcome))
