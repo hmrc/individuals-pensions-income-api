@@ -17,15 +17,5 @@
 package v2.retrievePensions.model.request
 
 import api.models.domain.{Nino, TaxYear}
-import v2.retrievePensions.RetrievePensionsSchema
 
-sealed trait RetrievePensionsRequestData {
-  def nino: Nino
-  def taxYear: TaxYear
-
-  val schema: RetrievePensionsSchema
-}
-
-case class Def1_RetrievePensionsRequestData(nino: Nino, taxYear: TaxYear) extends RetrievePensionsRequestData {
-  val schema: RetrievePensionsSchema = RetrievePensionsSchema.Def1
-}
+case class RetrievePensionsRequestData(nino: Nino, taxYear: TaxYear)

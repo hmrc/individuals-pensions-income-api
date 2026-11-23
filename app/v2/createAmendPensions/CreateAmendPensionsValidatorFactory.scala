@@ -19,7 +19,6 @@ package v2.createAmendPensions
 import api.controllers.validators.Validator
 import config.PensionsIncomeConfig
 import play.api.libs.json.JsValue
-import v2.createAmendPensions.def1.Def1_CreateAmendPensionsValidator
 import v2.createAmendPensions.model.request.CreateAmendPensionsRequestData
 
 import javax.inject.Inject
@@ -27,6 +26,6 @@ import javax.inject.Inject
 class CreateAmendPensionsValidatorFactory @Inject() (implicit pensionsIncomeConfig: PensionsIncomeConfig) {
 
   def validator(nino: String, taxYear: String, body: JsValue): Validator[CreateAmendPensionsRequestData] =
-    new Def1_CreateAmendPensionsValidator(nino, taxYear, body)
+    new CreateAmendPensionsValidator(nino, taxYear, body)
 
 }

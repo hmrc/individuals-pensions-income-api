@@ -17,35 +17,22 @@
 package v2.retrievePensions.model.response
 
 import api.models.domain.Timestamp
-import api.utils.JsonWritesUtil
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.{JsPath, Json, OWrites, Reads}
 import utils.JsonUtils
-import v2.retrievePensions.def1.model.response.{ForeignPensionsItem, OverseasPensionContributions}
 
-sealed trait RetrievePensionsResponse
+case class RetrievePensionsResponse(submittedOn: Timestamp,
+                                    foreignPensions: Option[Seq[ForeignPensionsItem]],
+                                    overseasPensionContributions: Option[Seq[OverseasPensionContributions]])
 
-object RetrievePensionsResponse extends JsonWritesUtil {
+object RetrievePensionsResponse extends JsonUtils {
 
-  implicit val writes: OWrites[RetrievePensionsResponse] = writesFrom { case a: Def1_RetrievePensionsResponse =>
-    implicitly[OWrites[Def1_RetrievePensionsResponse]].writes(a)
-  }
-
-}
-
-case class Def1_RetrievePensionsResponse(submittedOn: Timestamp,
-                                         foreignPensions: Option[Seq[ForeignPensionsItem]],
-                                         overseasPensionContributions: Option[Seq[OverseasPensionContributions]])
-    extends RetrievePensionsResponse
-
-object Def1_RetrievePensionsResponse extends JsonUtils {
-
-  implicit val reads: Reads[Def1_RetrievePensionsResponse] = (
+  implicit val reads: Reads[RetrievePensionsResponse] = (
     (JsPath \ "submittedOn").read[Timestamp] and
       (JsPath \ "foreignPension").readNullable[Seq[ForeignPensionsItem]].mapEmptySeqToNone and
       (JsPath \ "overseasPensionContribution").readNullable[Seq[OverseasPensionContributions]].mapEmptySeqToNone
-  )(Def1_RetrievePensionsResponse.apply)
+  )(RetrievePensionsResponse.apply)
 
-  implicit val writes: OWrites[Def1_RetrievePensionsResponse] = Json.writes[Def1_RetrievePensionsResponse]
+  implicit val writes: OWrites[RetrievePensionsResponse] = Json.writes[RetrievePensionsResponse]
 
 }

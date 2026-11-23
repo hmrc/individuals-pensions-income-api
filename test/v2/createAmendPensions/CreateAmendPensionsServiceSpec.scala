@@ -21,8 +21,12 @@ import api.models.domain.{Nino, TaxYear}
 import api.models.errors.*
 import api.models.outcomes.ResponseWrapper
 import api.services.ServiceSpec
-import v2.createAmendPensions.def1.model.request.{CreateAmendForeignPensionsItem, CreateAmendOverseasPensionContributions}
-import v2.createAmendPensions.model.request.{Def1_CreateAmendPensionsRequestBody, Def1_CreateAmendPensionsRequestData}
+import v2.createAmendPensions.model.request.{
+  CreateAmendForeignPensionsItem,
+  CreateAmendOverseasPensionContributions,
+  CreateAmendPensionsRequestBody,
+  CreateAmendPensionsRequestData
+}
 
 import scala.concurrent.Future
 
@@ -73,10 +77,10 @@ class CreateAmendPensionsServiceSpec extends ServiceSpec {
     )
   )
 
-  val amendPensionsRequest: Def1_CreateAmendPensionsRequestData = Def1_CreateAmendPensionsRequestData(
+  val amendPensionsRequest: CreateAmendPensionsRequestData = CreateAmendPensionsRequestData(
     nino = Nino(nino),
     taxYear = TaxYear.fromMtd(taxYear),
-    body = Def1_CreateAmendPensionsRequestBody(
+    body = CreateAmendPensionsRequestBody(
       foreignPensions = Some(foreignPensionsModel),
       overseasPensionContributions = Some(overseasPensionContributionsModel)
     )

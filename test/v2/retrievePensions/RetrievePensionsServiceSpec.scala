@@ -22,8 +22,8 @@ import api.models.errors.*
 import api.models.outcomes.ResponseWrapper
 import api.services.ServiceSpec
 import play.api.libs.json.{Format, Json}
-import v2.retrievePensions.model.request.Def1_RetrievePensionsRequestData
-import v2.retrievePensions.model.response.{Def1_RetrievePensionsResponse, RetrievePensionsResponse}
+import v2.retrievePensions.model.request.RetrievePensionsRequestData
+import v2.retrievePensions.model.response.RetrievePensionsResponse
 
 import scala.concurrent.Future
 
@@ -32,13 +32,13 @@ class RetrievePensionsServiceSpec extends ServiceSpec {
   private val nino    = Nino("AA112233A")
   private val taxYear = "2019-20"
 
-  val responseBody: Def1_RetrievePensionsResponse = Def1_RetrievePensionsResponse(
+  val responseBody: RetrievePensionsResponse = RetrievePensionsResponse(
     submittedOn = Timestamp("2020-07-06T09:37:17.000Z"),
     foreignPensions = None,
     overseasPensionContributions = None
   )
 
-  private val requestData = Def1_RetrievePensionsRequestData(nino, TaxYear.fromMtd(taxYear))
+  private val requestData = RetrievePensionsRequestData(nino, TaxYear.fromMtd(taxYear))
 
   trait Test extends MockRetrievePensionsConnector {
 
